@@ -1,9 +1,7 @@
 package com.clap2esp.app
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
 class SettingsActivity : AppCompatActivity() {
@@ -16,25 +14,67 @@ class SettingsActivity : AppCompatActivity() {
 
         val ipEdit = findViewById<EditText>(R.id.ipEdit)
         val pathEdit = findViewById<EditText>(R.id.pathEdit)
+
+        val toggleMode = findViewById<RadioButton>(R.id.toggleMode)
+        val onOffMode = findViewById<RadioButton>(R.id.onOffMode)
+
+        val doubleSingle = findViewById<RadioButton>(R.id.doubleSingle)
+        val singleDouble = findViewById<RadioButton>(R.id.singleDouble)
+
+        val manualTimeout = findViewById<CheckBox>(R.id.manualTimeout)
+        val timeoutEdit = findViewById<EditText>(R.id.timeoutEdit)
+
+        val vibrationCheck = findViewById<CheckBox>(R.id.vibrationCheck)
+        val networkLogCheck = findViewById<CheckBox>(R.id.networkLogCheck)
+        val connectionCheck = findViewById<CheckBox>(R.id.connectionCheck)
+
         val saveButton = findViewById<Button>(R.id.saveButton)
+        val testButton = findViewById<Button>(R.id.testButton)
 
         val settings = repository.load()
 
         ipEdit.setText(settings.espAddress)
         pathEdit.setText(settings.togglePath)
 
+        if (settings.mode == 0)
+            toggleMode.isChecked = true
+        else
+            onOffMode.isChecked = true
+
+        if (settings.sequence == 0)
+            doubleSingle.isChecked = true
+        else
+            singleDouble.isChecked = true
+
+        manualTimeout.isChecked = settings.manualTimeout
+        timeoutEdit.setText(settings.timeout.toString())
+
+        vibrationCheck.isChecked = settings.vibration
+        networkLogCheck.isChecked = settings.networkLog
+        connectionCheck.isChecked = settings.connectionIndicator
+
         saveButton.setOnClickListener {
 
+            var address = ipEdit.text.toString().trim()
+
+            address = address
+                .removePrefix("http://")
+                .removePrefix("https://")
+                .trim()
+
+            val timeout =
+                timeoutEdit.text.toString().toIntOrNull() ?: 550
+
             val newSettings = SettingsModel(
-                espAddress = ipEdit.text.toString(),
-                togglePath = pathEdit.text.toString(),
-                mode = settings.mode,
-                sequence = settings.sequence,
-                manualTimeout = settings.manualTimeout,
-                timeout = settings.timeout,
-                vibration = settings.vibration,
-                networkLog = settings.networkLog,
-                connectionIndicator = settings.connectionIndicator
+                espAddress = address,
+                togglePath = pathEdit.text.toString().trim(),
+                mode = if (toggleMode.isChecked) 0 else 1,
+                sequence = if (doubleSingle.isChecked) 0 else 1,
+                manualTimeout = manualTimeout.isChecked,
+                timeout = timeout,
+                vibration = vibrationCheck.isChecked,
+                networkLog = networkLogCheck.isChecked,
+                connectionIndicator = connectionCheck.isChecked
             )
 
             repository.save(newSettings)
@@ -42,6 +82,14 @@ class SettingsActivity : AppCompatActivity() {
             Toast.makeText(
                 this,
                 "Settings saved",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        testButton.setOnClickListener {
+            Toast.makeText(
+                this,
+                "HTTP will be added in next step",
                 Toast.LENGTH_SHORT
             ).show()
         }
