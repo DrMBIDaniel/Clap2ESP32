@@ -7,44 +7,130 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="24dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Settings"
-            android:textSize="26sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="IP Address"
-            android:layout_marginTop="24dp"/>
+            android:text="⚙ Settings"
+            android:textSize="28sp"
+            android:gravity="center"/>
 
         <EditText
             android:id="@+id/ipEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="192.168.0.240"
-            android:inputType="text"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Path"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="24dp"
+            android:hint="ESP Address"/>
 
         <EditText
             android:id="@+id/pathEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="/toggle"/>
+            android:layout_marginTop="12dp"
+            android:hint="Toggle Path"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mode"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"/>
+
+        <RadioGroup
+            android:id="@+id/modeGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/toggleMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Toggle"/>
+
+            <RadioButton
+                android:id="@+id/onOffMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ON / OFF"/>
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shutdown sequence"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"/>
+
+        <RadioGroup
+            android:id="@+id/sequenceGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/doubleSingle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Double → Single"/>
+
+            <RadioButton
+                android:id="@+id/singleDouble"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Single → Double"/>
+        </RadioGroup>
+
+        <CheckBox
+            android:id="@+id/manualTimeout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Manual timeout"
+            android:layout_marginTop="20dp"/>
+
+        <EditText
+            android:id="@+id/timeoutEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Timeout (ms)"
+            android:inputType="number"/>
+
+        <CheckBox
+            android:id="@+id/vibrationCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vibrate on clap"/>
+
+        <CheckBox
+            android:id="@+id/networkLogCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Network log"/>
+
+        <CheckBox
+            android:id="@+id/connectionCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Connection indicator"/>
 
         <Button
             android:id="@+id/saveButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Save"
+            android:layout_marginTop="24dp"/>
+
+        <Button
+            android:id="@+id/testButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Test request"
+            android:layout_marginTop="12dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Version 0.2"
+            android:gravity="center"
             android:layout_marginTop="24dp"/>
 
     </LinearLayout>
