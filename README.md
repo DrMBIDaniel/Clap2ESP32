@@ -5,3 +5,4 @@ android:label="Clap2ESP"
 from
 AndroidManifest.xml
 and i also just added this seveth stroke for 67 reference and never name your app "TryNotToCrackYourUncleAhhNephewSimulator"!!! 
+Oh sorry brat. You need to go to this path: app/src/main/res/values/strings.xml and then rewrite this stroke:
