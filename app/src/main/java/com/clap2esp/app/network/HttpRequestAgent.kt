@@ -61,13 +61,16 @@ class HttpRequestAgent(
 
             code == 200
 
-        } catch (e: Exception) {
+        } 
+        
+        catch (e: Exception) {
 
-            Logger.log("HTTP Error")
+    Logger.log("HTTP Error: ${e.javaClass.simpleName}")
 
-            false
+    Logger.log(e.message ?: "No message")
 
-        }
+    false
+}
 
     }
 
