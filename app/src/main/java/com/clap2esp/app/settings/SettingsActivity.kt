@@ -86,12 +86,26 @@ class SettingsActivity : AppCompatActivity() {
             ).show()
         }
 
-        testButton.setOnClickListener {
+     testButton.setOnClickListener {
+
+    Thread {
+
+        val tester = com.clap2esp.app.network.ConnectionTester(this)
+
+        val success = tester.test()
+
+        runOnUiThread {
+
             Toast.makeText(
                 this,
-                "HTTP will be added in next step",
+                if (success) "Request successful" else "Request failed",
                 Toast.LENGTH_SHORT
             ).show()
+
         }
+
+    }.start()
+
+}
     }
 }
