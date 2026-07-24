@@ -1,4 +1,4 @@
-package com.clap2esp.app.settings
+package com.clap2esp.app
 
 import android.os.Bundle
 import android.widget.Button
