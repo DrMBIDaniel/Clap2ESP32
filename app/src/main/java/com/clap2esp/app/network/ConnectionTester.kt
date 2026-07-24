@@ -1,3 +1,17 @@
-package com.clap2esp.app
+package com.clap2esp.app.network
 
-class ConnectionTester
+import android.content.Context
+
+class ConnectionTester(
+    context: Context
+) {
+
+    private val agent = HttpRequestAgent(context)
+
+    fun test(): Boolean {
+
+        return agent.sendToggle()
+
+    }
+
+}
