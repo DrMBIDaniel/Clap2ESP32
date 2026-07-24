@@ -18,7 +18,19 @@ class SettingsActivity:AppCompatActivity(){
         val saveButton=findViewById<Button>(R.id.saveButton)
 
         saveButton.setOnClickListener{
-            Toast.makeText(this,"Settings will be saved in next step",Toast.LENGTH_SHORT).show()
+
+    val settings=SettingsModel(
+        espAddress=ipEdit.text.toString(),
+        togglePath=pathEdit.text.toString()
+    )
+
+    repository.save(settings)
+
+    Toast.makeText(
+        this,
+        "Settings saved",
+        Toast.LENGTH_SHORT
+    ).show()
         }
     }
 }
