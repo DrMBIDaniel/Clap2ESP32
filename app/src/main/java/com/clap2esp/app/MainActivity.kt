@@ -59,14 +59,6 @@ val testButton=findViewById<Button>(R.id.testButton)
 
         stopButton.setOnClickListener {
 
-            settingsButton.setOnClickListener{
-    startActivity(Intent(this,SettingsActivity::class.java))
-}
-
-testButton.setOnClickListener{
-    Logger.log("Test button pressed")
-}
-
             val serviceIntent = Intent(
                 this,
                 AudioService::class.java
@@ -76,6 +68,14 @@ testButton.setOnClickListener{
 
             Logger.log("Stop button pressed")
         }
+
+        settingsButton.setOnClickListener{
+    startActivity(Intent(this,SettingsActivity::class.java))
+}
+        testButton.setOnClickListener{
+    Logger.log("Test button pressed")
+}
+
     }
 
     private fun checkMicrophonePermission() {
