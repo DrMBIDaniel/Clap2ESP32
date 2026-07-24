@@ -1,5 +1,6 @@
 package com.clap2esp.app
 
+import com.clap2esp.app.settings.SettingsActivity
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -37,8 +38,10 @@ Logger.setOnLogChanged {
 
         checkMicrophonePermission()
 
-        val startButton = findViewById<Button>(R.id.startButton)
-        val stopButton = findViewById<Button>(R.id.stopButton)
+val startButton=findViewById<Button>(R.id.startButton)
+val stopButton=findViewById<Button>(R.id.stopButton)
+val settingsButton=findViewById<Button>(R.id.settingsButton)
+val testButton=findViewById<Button>(R.id.testButton)
 
         startButton.setOnClickListener {
 
@@ -56,6 +59,14 @@ Logger.setOnLogChanged {
         }
 
         stopButton.setOnClickListener {
+
+            settingsButton.setOnClickListener{
+    startActivity(Intent(this,SettingsActivity::class.java))
+}
+
+testButton.setOnClickListener{
+    Logger.log("Test button pressed")
+}
 
             val serviceIntent = Intent(
                 this,
