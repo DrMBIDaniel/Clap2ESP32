@@ -1,4 +1,4 @@
-package your.package.network
+package com.clap2esp.app
 
 class HttpRequestAgent : RequestAgent {
 
