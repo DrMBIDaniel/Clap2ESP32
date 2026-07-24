@@ -1,11 +1,11 @@
-package com.clap2esp.app
+package com.clap2esp.app.network
 
 interface RequestAgent {
 
-    fun sendToggle()
+    fun sendToggle(): Boolean
 
-    fun sendOn()
+    fun sendOn(): Boolean
 
-    fun sendOff()
+    fun sendOff(): Boolean
 
 }
