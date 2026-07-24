@@ -1,4 +1,4 @@
-package your.package.command
+package com.clap2esp.app
 
 enum class Command {
 
