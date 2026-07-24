@@ -1,6 +1,5 @@
 package com.clap2esp.app
 
-import com.clap2esp.app.settings.SettingsActivity
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
