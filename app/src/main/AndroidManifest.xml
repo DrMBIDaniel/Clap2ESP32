@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".settings.SettingsActivity"
+            android:name=".SettingsActivity"
             android:exported="false"/>
 
         <activity
