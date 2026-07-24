@@ -1,4 +1,4 @@
-package your.package.settings
+package com.clap2esp.app
 
 data class SettingsModel(
 
