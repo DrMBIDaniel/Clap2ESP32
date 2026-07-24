@@ -1,3 +1,3 @@
-package your.package.settings
+package com.clap2esp.app
 
 class SettingsRepository
