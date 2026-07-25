@@ -13,7 +13,11 @@ class CommandProcessor(
     private val repository =
         SettingsRepository(context)
 
-    private var lightState = false 
+    private var lightState = false
+    private var lastClap: ClapType? = null
+private var lastClapTime = 0L
+
+private val sequenceTimeout = 1200L
 
     fun onSingleClap() {
         Logger.log("Single clap")
