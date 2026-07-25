@@ -83,10 +83,6 @@ class HttpRequestAgent(
     LogType.ERROR
 )
 
-    Logger.log(
-    "HTTP Error: ${e.javaClass.simpleName}",
-    LogType.ERROR
-)
     false
 }
 
