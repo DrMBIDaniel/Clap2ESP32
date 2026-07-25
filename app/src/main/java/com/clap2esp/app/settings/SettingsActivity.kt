@@ -1,8 +1,10 @@
-package com.clap2esp.app
+package com.clap2esp.app.settings
 
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.clap2esp.app.R
+import com.clap2esp.app.network.ConnectionTester
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -36,15 +38,11 @@ class SettingsActivity : AppCompatActivity() {
         ipEdit.setText(settings.espAddress)
         pathEdit.setText(settings.togglePath)
 
-        if (settings.mode == 0)
-            toggleMode.isChecked = true
-        else
-            onOffMode.isChecked = true
+        toggleMode.isChecked = settings.mode == 0
+        onOffMode.isChecked = settings.mode == 1
 
-        if (settings.sequence == 0)
-            doubleSingle.isChecked = true
-        else
-            singleDouble.isChecked = true
+        doubleSingle.isChecked = settings.sequence == 0
+        singleDouble.isChecked = settings.sequence == 1
 
         manualTimeout.isChecked = settings.manualTimeout
         timeoutEdit.setText(settings.timeout.toString())
@@ -86,26 +84,25 @@ class SettingsActivity : AppCompatActivity() {
             ).show()
         }
 
-     testButton.setOnClickListener {
+        testButton.setOnClickListener {
 
-    Thread {
+            Thread {
 
-        val tester = com.clap2esp.app.network.ConnectionTester(this)
+                val tester = ConnectionTester(this)
 
-        val success = tester.test()
+                val success = tester.test()
 
-        runOnUiThread {
+                runOnUiThread {
 
-            Toast.makeText(
-                this,
-                if (success) "Request successful" else "Request failed",
-                Toast.LENGTH_SHORT
-            ).show()
+                    Toast.makeText(
+                        this,
+                        if (success) "Request successful" else "Request failed",
+                        Toast.LENGTH_SHORT
+                    ).show()
 
+                }
+
+            }.start()
         }
-
-    }.start()
-
-}
     }
 }
