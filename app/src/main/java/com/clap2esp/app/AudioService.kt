@@ -19,7 +19,7 @@ class AudioService : Service() {
 
     private var audioRecord: AudioRecord? = null
     private var isRecording = false
-    private val clapDetector = ClapDetector()
+    private lateinit var clapDetector: ClapDetector
     private lateinit var requestAgent: HttpRequestAgent
     private lateinit var commandProcessor: CommandProcessor
         
@@ -29,6 +29,7 @@ class AudioService : Service() {
     override fun onCreate() {
 
        super.onCreate()
+       clapDetector = ClapDetector(this)
 
 Logger.log("AudioService created")
 
