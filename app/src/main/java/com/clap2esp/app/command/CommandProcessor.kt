@@ -7,14 +7,13 @@ import com.clap2esp.app.settings.SettingsRepository
 
 class CommandProcessor(
     context: Context,
-    private val requestAgent: RequestAgent
+private val requestAgent: RequestAgent
 ) {
 
-    private val repository =
+private val repository =
         SettingsRepository(context)
 
-    private var lightState = false
-    private var lastClap: ClapType? = null
+private var lastClap: ClapType? = null
 private var lastClapTime = 0L
 
 private val sequenceTimeout = 1200L
@@ -34,24 +33,16 @@ private val sequenceTimeout = 1200L
 
     if (settings.mode == 0) {
 
+        // Toggle mode
         requestAgent.sendToggle()
-
-        return
-    }
-
-    lightState = !lightState
-
-    if (lightState) {
-
-        requestAgent.sendOn()
 
     } else {
 
-        requestAgent.sendOff()
-        processSequence(ClapType.DOUBLE)
-
+        // ON/OFF mode
+        requestAgent.sendOn()
     }
 
+    processSequence(ClapType.DOUBLE)
 }
 
     fun onSequenceDoubleSingle() {
@@ -91,10 +82,15 @@ private val sequenceTimeout = 1200L
 
             if (settings.sequence == 0) {
 
-                Logger.log("Sequence: DOUBLE -> SINGLE")
+    Logger.log("Sequence: DOUBLE -> SINGLE")
 
-                onSequenceDoubleSingle()
-            }
+    onSequenceDoubleSingle()
+
+    lastClap = null
+    lastClapTime = 0L
+
+    return
+}
 
         }
 
@@ -105,11 +101,15 @@ private val sequenceTimeout = 1200L
 
             if (settings.sequence == 1) {
 
-                Logger.log("Sequence: SINGLE -> DOUBLE")
+    Logger.log("Sequence: SINGLE -> DOUBLE")
 
-                onSequenceSingleDouble()
-            }
+    onSequenceSingleDouble()
 
+    lastClap = null
+    lastClapTime = 0L
+
+    return
+}
         }
 
     }
