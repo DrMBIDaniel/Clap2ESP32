@@ -4,6 +4,7 @@ import android.content.Context
 import com.clap2esp.app.Logger
 import com.clap2esp.app.network.RequestAgent
 import com.clap2esp.app.settings.SettingsRepository
+import com.clap2esp.app.LogType
 
 class CommandProcessor(
     context: Context,
@@ -35,14 +36,20 @@ private fun executeRequest(action: () -> Boolean) {
 
     fun onSingleClap() {
 
-    Logger.log("Single clap")
+    Logger.log(
+    "Single clap",
+    LogType.INFO
+)
 
     processSequence(ClapType.SINGLE)
 }
 
     fun onDoubleClap() {
 
-    Logger.log("Double clap")
+    Logger.log(
+    "Double clap",
+    LogType.INFO
+)
 
     val settings = repository.load()
 
@@ -65,28 +72,40 @@ private fun executeRequest(action: () -> Boolean) {
 }
 
     fun onSequenceDoubleSingle() {
-        Logger.log("Double → Single")
+        Logger.log(
+    "Sequence: DOUBLE -> SINGLE",
+    LogType.SUCCESS
+)
         executeRequest {
     requestAgent.sendOff()
 }
     }
 
     fun onSequenceSingleDouble() {
-        Logger.log("Single → Double")
+        Logger.log(
+    "Sequence: SINGLE -> DOUBLE",
+    LogType.SUCCESS
+)
         executeRequest {
     requestAgent.sendOff()
 }
     }
 
     fun onLightOn() {
-        Logger.log("Light ON")
+        Logger.log(
+    "Light ON",
+    LogType.SUCCESS
+)
         executeRequest {
     requestAgent.sendOn()
 }
     }
 
     fun onLightOff() {
-        Logger.log("Light OFF")
+        Logger.log(
+    "Light OFF",
+    LogType.SUCCESS
+)
         executeRequest {
     requestAgent.sendOff()
 }
