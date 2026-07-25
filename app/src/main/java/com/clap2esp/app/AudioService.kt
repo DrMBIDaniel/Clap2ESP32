@@ -14,15 +14,11 @@ import android.os.IBinder
 import android.util.Log
 import com.clap2esp.app.command.CommandProcessor
 import com.clap2esp.app.network.HttpRequestAgent
-import com.clap2esp.app.command.CommandProcessor
-import com.clap2esp.app.network.HttpRequestAgent
 
 class AudioService : Service() {
 
     private var audioRecord: AudioRecord? = null
-
     private var isRecording = false
-
     private val clapDetector = ClapDetector()
     private lateinit var requestAgent: HttpRequestAgent
     private lateinit var commandProcessor: CommandProcessor
@@ -32,16 +28,15 @@ class AudioService : Service() {
 
     override fun onCreate() {
 
-        super.onCreate()
-        commandProcessor = CommandProcessor(
-        HttpRequestAgent(this)
-    )
+       super.onCreate()
 
-        Logger.log("AudioService created")
-        requestAgent = HttpRequestAgent(this)
-        commandProcessor = CommandProcessor(requestAgent)
+Logger.log("AudioService created")
 
-        createNotificationChannel()
+requestAgent = HttpRequestAgent(this)
+
+commandProcessor = CommandProcessor(requestAgent)
+
+createNotificationChannel()
 
         val notification =
             Notification.Builder(
