@@ -3,6 +3,7 @@ package com.clap2esp.app
 import kotlin.math.abs
 import android.content.Context
 import com.clap2esp.app.settings.SettingsRepository
+import com.clap2esp.app.LogType
 
 enum class ClapType {
     NONE,
@@ -98,8 +99,9 @@ class ClapDetector(
 
 
             Logger.log(
-                "First clap amplitude=$maxAmplitude"
-            )
+    "First clap amplitude=$maxAmplitude",
+    LogType.INFO
+)
 
 
 
@@ -125,8 +127,9 @@ class ClapDetector(
 
 
             Logger.log(
-                "Double clap delay=${delay}ms"
-            )
+    "Double clap delay=${delay}ms",
+    LogType.SUCCESS
+)
 
 
 
@@ -161,9 +164,10 @@ class ClapDetector(
 
 
 
-            Logger.log(
-                "Single clap detected"
-            )
+           Logger.log(
+    "Single clap detected",
+    LogType.INFO
+)
 
 
             return ClapType.SINGLE_CLAP
