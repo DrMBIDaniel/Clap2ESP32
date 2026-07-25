@@ -10,6 +10,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startForegroundService
 import android.widget.TextView
+import android.content.ClipData
+import android.content.ClipboardManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,6 +43,8 @@ val startButton=findViewById<Button>(R.id.startButton)
 val stopButton=findViewById<Button>(R.id.stopButton)
 val settingsButton=findViewById<Button>(R.id.settingsButton)
 val testButton=findViewById<Button>(R.id.testButton)
+val copyLogButton=findViewById<Button>(R.id.copyLogButton)
+val clearLogButton=findViewById<Button>(R.id.clearLogButton)
 
         startButton.setOnClickListener {
 
@@ -74,6 +78,26 @@ val testButton=findViewById<Button>(R.id.testButton)
 }
         testButton.setOnClickListener{
     Logger.log("Test button pressed")
+}
+
+        copyLogButton.setOnClickListener {
+
+    val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+
+    val clip = ClipData.newPlainText(
+        "Log",
+        Logger.getLogs()
+    )
+
+    clipboard.setPrimaryClip(clip)
+
+    Logger.log("Log copied")
+
+}
+        clearLogButton.setOnClickListener {
+
+    Logger.clear()
+
 }
 
     }
