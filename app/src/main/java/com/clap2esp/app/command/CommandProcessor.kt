@@ -1,4 +1,4 @@
-package com.clap2esp.app
+package com.clap2esp.app.command
 
 class CommandProcessor(
     private val requestAgent: RequestAgent
