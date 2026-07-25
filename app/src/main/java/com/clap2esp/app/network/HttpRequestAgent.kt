@@ -2,7 +2,7 @@ package com.clap2esp.app.network
 
 import android.content.Context
 import com.clap2esp.app.Logger
-import com.clap2esp.app.SettingsRepository
+import com.clap2esp.app.settings.SettingsRepository
 import java.net.HttpURLConnection
 import java.net.URL
 
