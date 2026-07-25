@@ -1,5 +1,5 @@
 package com.clap2esp.app.settings
-
+import com.clap2esp.app.settings.SettingsModel
 data class SettingsModel(
     val espAddress:String="",
     val togglePath:String="/toggle",
