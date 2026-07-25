@@ -15,7 +15,7 @@ class CommandProcessor(
     private val repository =
         SettingsRepository(context)
 
-    private var lightState = false {
+    private var lightState = false 
 
     fun onSingleClap() {
         Logger.log("Single clap")
