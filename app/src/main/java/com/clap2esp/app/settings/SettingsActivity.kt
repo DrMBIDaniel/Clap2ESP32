@@ -1,4 +1,4 @@
-package com.clap2esp.app
+package com.clap2esp.app.settings
 
 import android.os.Bundle
 import android.widget.*
