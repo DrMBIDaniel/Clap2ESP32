@@ -1,132 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:orientation="vertical"
-
     android:padding="24dp">
 
-
     <TextView
-
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
-
         android:text="Clap2ESP VERSION 0.2"
-
         android:textSize="32sp"
-
         android:gravity="center"/>
 
-
     <TextView
-
         android:id="@+id/statusText"
-
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
-
         android:text="Status: Ready"
-
         android:textSize="20sp"
-
         android:layout_marginTop="40dp"/>
-
 
     <Button
-
         android:id="@+id/startButton"
-
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
-
         android:text="Start listening"
-
         android:layout_marginTop="40dp"/>
-  
+
     <Button
         android:id="@+id/stopButton"
-    
         android:layout_width="match_parent"
-    
         android:layout_height="wrap_content"
-    
-        android:text="Stop Listening"
-    
+        android:text="Stop listening"
         android:layout_marginTop="20dp"/>
-    
+
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="20dp"
-    android:orientation="horizontal">
-
-    <Button
-        android:id="@+id/settingsButton"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Settings"/>
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
-    <Space
-        android:layout_width="12dp"
-        android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/settingsButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Settings"/>
 
-    <Button
-        android:id="@+id/testButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Test"/>
-</LinearLayout>
+        <Space
+            android:layout_width="12dp"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/testButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Test"/>
+
+    </LinearLayout>
 
     <TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="──────────── LOG ────────────"
-        <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-    <Button
-        android:id="@+id/copyLogButton"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Copy"/>
+        android:text="──────────── LOG ────────────"
+        android:textSize="16sp"
+        android:layout_marginTop="30dp"/>
 
-    <Button
-        android:id="@+id/clearLogButton"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Clear"/>
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
-</LinearLayout>
-    android:textSize="16sp"
-    android:layout_marginTop="30dp"/>
+        <Button
+            android:id="@+id/copyLogButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Copy"/>
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:layout_marginTop="10dp">
+        <Space
+            android:layout_width="12dp"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/clearLogButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Clear"/>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/logText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:background="#EEEEEE"
+        android:padding="8dp"
         android:text="Waiting..."
-        android:textSize="14sp"
         android:textIsSelectable="true"
-        android:padding="8dp"/>
-</ScrollView>
+        android:textSize="14sp"/>
 
 </LinearLayout>
