@@ -4,6 +4,12 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+enum class LogType {
+    INFO,
+    SUCCESS,
+    WARNING,
+    ERROR
+}
 object Logger {
 
     private val logs = mutableListOf<String>()
@@ -14,14 +20,24 @@ object Logger {
         listener = callback
     }
 
-    fun log(message: String) {
+    fun log(
+    message: String,
+    type: LogType = LogType.INFO
+) {
 
     val time = SimpleDateFormat(
         "HH:mm:ss",
         Locale.getDefault()
     ).format(Date())
 
-    logs.add("[$time] $message")
+    val prefix = when(type){
+    LogType.INFO -> "INFO"
+    LogType.SUCCESS -> "OK"
+    LogType.WARNING -> "WARN"
+    LogType.ERROR -> "ERROR"
+}
+
+logs.add("[$time][$prefix] $message")
 
     while (logs.size > 300) {
         logs.removeAt(0)
