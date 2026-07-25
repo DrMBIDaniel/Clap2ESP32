@@ -1,7 +1,8 @@
 package com.clap2esp.app
 
 import kotlin.math.abs
-
+import android.content.Context
+import com.clap2esp.app.settings.SettingsRepository
 
 enum class ClapType {
     NONE,
@@ -9,43 +10,42 @@ enum class ClapType {
     DOUBLE_CLAP
 }
 
-
-
-class ClapDetector {
-
+class ClapDetector(
+    context: Context
+) {
+    private val repository =
+    SettingsRepository(context)
 
     private val threshold = 12000
 
+    private fun getDoubleClapInterval(): Long {
 
-    private val doubleClapInterval = 800L
+    val settings = repository.load()
 
+    return if (settings.manualTimeout) {
+        settings.timeout.toLong()
+    } else {
+        800L
+    }
 
+}
+    
     private val minClapInterval = 150L
-
 
     private var firstClapTime = 0L
 
-
     private var waitingSecondClap = false
-
 
     private var lastDetectionTime = 0L
 
-
-
     fun detect(buffer: ShortArray): ClapType {
-
 
         var maxAmplitude = 0
 
-
-
         for (sample in buffer) {
-
 
             val amplitude =
                 abs(sample.toInt())
-
 
             if (amplitude > maxAmplitude) {
 
@@ -117,7 +117,7 @@ class ClapDetector {
 
 
 
-        if (delay <= doubleClapInterval) {
+        if (delay <= getDoubleClapInterval()) {
 
 
             waitingSecondClap = false
@@ -153,7 +153,7 @@ class ClapDetector {
         if (
             waitingSecondClap &&
             System.currentTimeMillis()
-            - firstClapTime > doubleClapInterval
+- firstClapTime > getDoubleClapInterval()
         ) {
 
 
