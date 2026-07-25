@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat.startForegroundService
 import android.widget.TextView
 import android.content.ClipData
 import android.content.ClipboardManager
+import com.clap2esp.app.settings.SettingsActivity
 
 class MainActivity : AppCompatActivity() {
 
