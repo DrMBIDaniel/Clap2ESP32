@@ -16,19 +16,19 @@ object Logger {
 
     fun log(message: String) {
 
-        val time = SimpleDateFormat(
-            "HH:mm:ss",
-            Locale.getDefault()
-        ).format(Date())
+    val time = SimpleDateFormat(
+        "HH:mm:ss",
+        Locale.getDefault()
+    ).format(Date())
 
-        logs.add("[$time] $message")
+    logs.add("[$time] $message")
 
-        if (logs.size > 300) {
-            logs.removeAt(0)
-        }
-
-        listener?.invoke()
+    while (logs.size > 300) {
+        logs.removeAt(0)
     }
+
+    listener?.invoke()
+}
 
     fun getLogs(): String {
 
