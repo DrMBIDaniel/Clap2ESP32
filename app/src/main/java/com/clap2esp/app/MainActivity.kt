@@ -31,6 +31,24 @@ Logger.setOnLogChanged {
 
         logText.text = Logger.getLogs()
 
+logText.post {
+
+    val layout = logText.layout
+
+    if (layout != null) {
+
+        val scroll =
+            layout.getLineTop(logText.lineCount) - logText.height
+
+        if (scroll > 0)
+            logText.scrollTo(0, scroll)
+        else
+            logText.scrollTo(0, 0)
+
+    }
+
+}
+
     }
 
 }
@@ -92,11 +110,21 @@ val clearLogButton=findViewById<Button>(R.id.clearLogButton)
     clipboard.setPrimaryClip(clip)
 
     Logger.log("Log copied")
+    android.widget.Toast.makeText(
+    this,
+    "Log copied to clipboard",
+    android.widget.Toast.LENGTH_SHORT
+).show()
 
 }
         clearLogButton.setOnClickListener {
 
     Logger.clear()
+    android.widget.Toast.makeText(
+    this,
+    "Log cleared",
+    android.widget.Toast.LENGTH_SHORT
+).show()
 
 }
 
