@@ -17,6 +17,21 @@ private var lastClap: ClapType? = null
 private var lastClapTime = 0L
 
 private val sequenceTimeout = 1200L
+private fun executeRequest(action: () -> Boolean) {
+
+    Thread {
+
+        val success = action()
+
+        if (success) {
+            Logger.log("HTTP command successful")
+        } else {
+            Logger.log("HTTP command failed")
+        }
+
+    }.start()
+
+}
 
     fun onSingleClap() {
 
@@ -33,13 +48,17 @@ private val sequenceTimeout = 1200L
 
     if (settings.mode == 0) {
 
+    executeRequest {
         requestAgent.sendToggle()
-
-    } else {
-
-        requestAgent.sendOn()
-
     }
+
+} else {
+
+    executeRequest {
+        requestAgent.sendOn()
+    }
+
+}
 
     processSequence(ClapType.DOUBLE)
 
@@ -47,22 +66,30 @@ private val sequenceTimeout = 1200L
 
     fun onSequenceDoubleSingle() {
         Logger.log("Double → Single")
-        requestAgent.sendOff()
+        executeRequest {
+    requestAgent.sendOff()
+}
     }
 
     fun onSequenceSingleDouble() {
         Logger.log("Single → Double")
-        requestAgent.sendOff()
+        executeRequest {
+    requestAgent.sendOff()
+}
     }
 
     fun onLightOn() {
         Logger.log("Light ON")
-        requestAgent.sendOn()
+        executeRequest {
+    requestAgent.sendOn()
+}
     }
 
     fun onLightOff() {
         Logger.log("Light OFF")
-        requestAgent.sendOff()
+        executeRequest {
+    requestAgent.sendOff()
+}
     }
 
     private fun processSequence(type: ClapType) {
