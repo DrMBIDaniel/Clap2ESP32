@@ -34,8 +34,7 @@ Logger.setOnLogChanged {
 
     runOnUiThread {
 
-        logText.text = Logger.getLogs()
-
+        logText.text = buildColoredLog()
 logText.post {
 
     val layout = logText.layout
@@ -181,5 +180,26 @@ val clearLogButton=findViewById<Button>(R.id.clearLogButton)
 
             "[ERROR]" in line ->
                 Color.RED
+
+            "[WARNING]" in line ->
+                Color.rgb(255, 140, 0)
+
+            "[INFO]" in line ->
+                Color.rgb(0, 120, 255)
+
+            else ->
+                Color.WHITE
+        }
+
+        builder.setSpan(
+            ForegroundColorSpan(color),
+            start,
+            builder.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+    }
+
+    return builder
+}
             
 }
