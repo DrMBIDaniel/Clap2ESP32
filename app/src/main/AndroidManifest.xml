@@ -17,9 +17,9 @@
     android:usesCleartextTraffic="true"
     android:theme="@style/AppTheme">
 
-        <activity
-            android:name=".SettingsActivity"
-            android:exported="false"/>
+       <activity
+    android:name="com.clap2esp.app.settings.SettingsActivity"
+    android:exported="false"/>
 
         <activity
             android:name=".MainActivity"
