@@ -1,4 +1,4 @@
-package com.clap2esp.app
+package com.clap2esp.app.settings
 
 data class SettingsModel(
     val espAddress:String="",
