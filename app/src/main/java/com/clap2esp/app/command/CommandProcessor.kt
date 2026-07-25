@@ -33,16 +33,16 @@ private val sequenceTimeout = 1200L
 
     if (settings.mode == 0) {
 
-        // Toggle mode
         requestAgent.sendToggle()
 
     } else {
 
-        // ON/OFF mode
         requestAgent.sendOn()
+
     }
 
     processSequence(ClapType.DOUBLE)
+
 }
 
     fun onSequenceDoubleSingle() {
