@@ -14,6 +14,7 @@ import android.os.IBinder
 import android.util.Log
 import com.clap2esp.app.command.CommandProcessor
 import com.clap2esp.app.network.HttpRequestAgent
+import com.clap2esp.app.LogType
 
 class AudioService : Service() {
 
@@ -31,7 +32,10 @@ class AudioService : Service() {
        super.onCreate()
        clapDetector = ClapDetector(this)
 
-Logger.log("AudioService created")
+Logger.log(
+    "AudioService created",
+    LogType.INFO
+)
 
 requestAgent = HttpRequestAgent(this)
 
@@ -63,8 +67,10 @@ createNotificationChannel()
             notification
         )
 
-        Logger.log("Foreground service started")
-
+        Logger.log(
+    "Foreground service started",
+    LogType.SUCCESS
+)
     }
 
     override fun onStartCommand(
@@ -132,8 +138,10 @@ createNotificationChannel()
 
 
 
-        Logger.log("Microphone recording started")
-
+        Logger.log(
+    "Microphone recording started",
+    LogType.SUCCESS
+)
         Thread {
 
             val buffer =
@@ -261,8 +269,9 @@ createNotificationChannel()
 
 
         Logger.log(
-            "AudioService stopped"
-        )
+    "AudioService stopped",
+    LogType.WARNING
+)
 
 
 
