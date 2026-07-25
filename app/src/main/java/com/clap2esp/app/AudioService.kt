@@ -12,7 +12,8 @@ import android.media.MediaRecorder
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
-
+import com.clap2esp.app.command.CommandProcessor
+import com.clap2esp.app.network.HttpRequestAgent
 
 
 class AudioService : Service() {
@@ -24,36 +25,22 @@ class AudioService : Service() {
 
     private var isRecording = false
 
-
-
-    private val clapDetector =
-        ClapDetector()
-
-
-
+    private val clapDetector = ClapDetector()
+    private lateinit var requestAgent: HttpRequestAgent
+    private lateinit var commandProcessor: CommandProcessor
+        
     private val channelId =
         "Clap2ESP_Channel"
-
-
-
-
-
 
     override fun onCreate() {
 
         super.onCreate()
 
-
-
-        Logger.log(
-            "AudioService created"
-        )
-
-
+        Logger.log("AudioService created")
+        requestAgent = HttpRequestAgent(this)
+        commandProcessor = CommandProcessor(requestAgent)
 
         createNotificationChannel()
-
-
 
         val notification =
             Notification.Builder(
