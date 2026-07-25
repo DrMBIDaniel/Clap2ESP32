@@ -168,70 +168,32 @@ val clearLogButton=findViewById<Button>(R.id.clearLogButton)
 
     for (line in lines) {
 
-        val lineStart = builder.length
+        val start = builder.length
 
         builder.append(line)
         builder.append("\n")
 
-        val info = "[INFO]"
-        val ok = "[OK]"
-        val warn = "[WARN]"
-        val error = "[ERROR]"
+        val color = when {
 
-        when {
+            "[OK]" in line ->
+                Color.rgb(0, 180, 0)
 
-            line.contains(info) -> {
+            "[ERROR]" in line ->
+                Color.RED
 
-                val start = lineStart + line.indexOf(info)
-                val end = start + info.length
+            "[WARN]" in line ->
+                Color.rgb(255, 140, 0)
 
-                builder.setSpan(
-                    ForegroundColorSpan(Color.rgb(80,160,255)),
-                    start,
-                    end,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-            }
-
-            line.contains(ok) -> {
-
-                val start = lineStart + line.indexOf(ok)
-                val end = start + ok.length
-
-                builder.setSpan(
-                    ForegroundColorSpan(Color.rgb(0,180,0)),
-                    start,
-                    end,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-            }
-
-            line.contains(warn) -> {
-
-                val start = lineStart + line.indexOf(warn)
-                val end = start + warn.length
-
-                builder.setSpan(
-                    ForegroundColorSpan(Color.rgb(255,140,0)),
-                    start,
-                    end,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-            }
-
-            line.contains(error) -> {
-
-                val start = lineStart + line.indexOf(error)
-                val end = start + error.length
-
-                builder.setSpan(
-                    ForegroundColorSpan(Color.RED),
-                    start,
-                    end,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-            }
+            else ->
+                Color.WHITE
         }
+
+        builder.setSpan(
+            ForegroundColorSpan(color),
+            start,
+            builder.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
     }
 
     return builder
