@@ -34,8 +34,11 @@ Logger.log("AudioService created")
 
 requestAgent = HttpRequestAgent(this)
 
-commandProcessor = CommandProcessor(requestAgent)
-
+commandProcessor =
+    CommandProcessor(
+        this,
+        requestAgent
+    )
 createNotificationChannel()
 
         val notification =
