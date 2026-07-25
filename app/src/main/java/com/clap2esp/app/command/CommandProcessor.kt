@@ -1,166 +1,186 @@
 package com.clap2esp.app.command
 
 import android.content.Context
+import com.clap2esp.app.LogType
 import com.clap2esp.app.Logger
 import com.clap2esp.app.network.RequestAgent
 import com.clap2esp.app.settings.SettingsRepository
-import com.clap2esp.app.LogType
 
 class CommandProcessor(
     context: Context,
-private val requestAgent: RequestAgent
+    private val requestAgent: RequestAgent
 ) {
 
-private val repository =
+    private val repository =
         SettingsRepository(context)
 
-private var lastClap: ClapType? = null
-private var lastClapTime = 0L
+    private var lastClap: ClapType? = null
+    private var lastClapTime = 0L
 
-private val sequenceTimeout = 1200L
-private fun executeRequest(action: () -> Boolean) {
-
-    Thread {
-
-        val success = action()
-
-        if (success) {
-            Logger.log("HTTP command successful")
-        } else {
-            Logger.log("HTTP command failed")
-        }
-
-    }.start()
-
-}
+    private val sequenceTimeout = 1200L
 
     fun onSingleClap() {
 
-    Logger.log(
-    "Single clap",
-    LogType.INFO
-)
+        Logger.log(
+            "Single clap received",
+            LogType.INFO
+        )
 
-    processSequence(ClapType.SINGLE)
-}
+        processSequence(ClapType.SINGLE)
+    }
 
     fun onDoubleClap() {
 
-    Logger.log(
-    "Double clap",
-    LogType.INFO
-)
+        Logger.log(
+            "Double clap received",
+            LogType.INFO
+        )
 
-    val settings = repository.load()
+        val settings = repository.load()
 
-    if (settings.mode == 0) {
+        Logger.log(
+            "Mode = ${if (settings.mode == 0) "TOGGLE" else "ON/OFF"}",
+            LogType.INFO
+        )
 
-    executeRequest {
-        requestAgent.sendToggle()
+        if (settings.mode == 0) {
+
+            Logger.log(
+                "Sending TOGGLE command",
+                LogType.SUCCESS
+            )
+
+            requestAgent.sendToggle()
+
+        } else {
+
+            Logger.log(
+                "Sending ON command",
+                LogType.SUCCESS
+            )
+
+            requestAgent.sendOn()
+        }
+
+        processSequence(ClapType.DOUBLE)
     }
-
-} else {
-
-    executeRequest {
-        requestAgent.sendOn()
-    }
-
-}
-
-    processSequence(ClapType.DOUBLE)
-
-}
 
     fun onSequenceDoubleSingle() {
+
         Logger.log(
-    "Sequence: DOUBLE -> SINGLE",
-    LogType.SUCCESS
-)
-        executeRequest {
-    requestAgent.sendOff()
-}
+            "Sequence DOUBLE → SINGLE detected",
+            LogType.SUCCESS
+        )
+
+        Logger.log(
+            "Sending OFF command",
+            LogType.SUCCESS
+        )
+
+        requestAgent.sendOff()
     }
 
     fun onSequenceSingleDouble() {
+
         Logger.log(
-    "Sequence: SINGLE -> DOUBLE",
-    LogType.SUCCESS
-)
-        executeRequest {
-    requestAgent.sendOff()
-}
+            "Sequence SINGLE → DOUBLE detected",
+            LogType.SUCCESS
+        )
+
+        Logger.log(
+            "Sending OFF command",
+            LogType.SUCCESS
+        )
+
+        requestAgent.sendOff()
     }
 
     fun onLightOn() {
+
         Logger.log(
-    "Light ON",
-    LogType.SUCCESS
-)
-        executeRequest {
-    requestAgent.sendOn()
-}
+            "Light ON",
+            LogType.SUCCESS
+        )
+
+        requestAgent.sendOn()
     }
 
     fun onLightOff() {
+
         Logger.log(
-    "Light OFF",
-    LogType.SUCCESS
-)
-        executeRequest {
-    requestAgent.sendOff()
-}
+            "Light OFF",
+            LogType.SUCCESS
+        )
+
+        requestAgent.sendOff()
     }
 
     private fun processSequence(type: ClapType) {
 
-    val now = System.currentTimeMillis()
+        val now = System.currentTimeMillis()
 
-    if (lastClap != null &&
-        now - lastClapTime < sequenceTimeout
-    ) {
-
-        val settings = repository.load()
-
-        if (
-            lastClap == ClapType.DOUBLE &&
-            type == ClapType.SINGLE
+        if (lastClap != null &&
+            now - lastClapTime < sequenceTimeout
         ) {
 
-            if (settings.sequence == 0) {
+            val settings = repository.load()
 
-    Logger.log("Sequence: DOUBLE -> SINGLE")
+            Logger.log(
+                "Sequence mode = ${settings.sequence}",
+                LogType.INFO
+            )
 
-    onSequenceDoubleSingle()
+            if (
+                lastClap == ClapType.DOUBLE &&
+                type == ClapType.SINGLE
+            ) {
 
-    lastClap = null
-    lastClapTime = 0L
+                if (settings.sequence == 0) {
 
-    return
-}
+                    onSequenceDoubleSingle()
 
+                    lastClap = null
+                    lastClapTime = 0L
+                    return
+
+                } else {
+
+                    Logger.log(
+                        "DOUBLE → SINGLE ignored",
+                        LogType.WARNING
+                    )
+                }
+            }
+
+            if (
+                lastClap == ClapType.SINGLE &&
+                type == ClapType.DOUBLE
+            ) {
+
+                if (settings.sequence == 1) {
+
+                    onSequenceSingleDouble()
+
+                    lastClap = null
+                    lastClapTime = 0L
+                    return
+
+                } else {
+
+                    Logger.log(
+                        "SINGLE → DOUBLE ignored",
+                        LogType.WARNING
+                    )
+                }
+            }
         }
 
-        if (
-            lastClap == ClapType.SINGLE &&
-            type == ClapType.DOUBLE
-        ) {
+        lastClap = type
+        lastClapTime = now
 
-            if (settings.sequence == 1) {
-
-    Logger.log("Sequence: SINGLE -> DOUBLE")
-
-    onSequenceSingleDouble()
-
-    lastClap = null
-    lastClapTime = 0L
-
-    return
-}
-        }
-
+        Logger.log(
+            "Waiting for second sequence clap",
+            LogType.INFO
+        )
     }
-
-    lastClap = type
-    lastClapTime = now
-}
 }
