@@ -14,14 +14,12 @@ import android.os.IBinder
 import android.util.Log
 import com.clap2esp.app.command.CommandProcessor
 import com.clap2esp.app.network.HttpRequestAgent
-
+import com.clap2esp.app.command.CommandProcessor
+import com.clap2esp.app.network.HttpRequestAgent
 
 class AudioService : Service() {
 
-
-
     private var audioRecord: AudioRecord? = null
-
 
     private var isRecording = false
 
@@ -35,6 +33,9 @@ class AudioService : Service() {
     override fun onCreate() {
 
         super.onCreate()
+        commandProcessor = CommandProcessor(
+        HttpRequestAgent(this)
+    )
 
         Logger.log("AudioService created")
         requestAgent = HttpRequestAgent(this)
@@ -58,32 +59,20 @@ class AudioService : Service() {
                 )
                 .build()
 
-
-
         startForeground(
             1,
             notification
         )
 
-
-        Logger.log(
-            "Foreground service started"
-        )
+        Logger.log("Foreground service started")
 
     }
-
-
-
-
-
-
 
     override fun onStartCommand(
         intent: Intent?,
         flags: Int,
         startId: Int
     ): Int {
-
 
         startListening()
 
@@ -144,29 +133,14 @@ class AudioService : Service() {
 
 
 
-        Logger.log(
-            "Microphone recording started"
-        )
-
-
-
-
-
+        Logger.log("Microphone recording started")
 
         Thread {
-
-
 
             val buffer =
                 ShortArray(bufferSize)
 
-
-
-
-
             while(isRecording) {
-
-
 
                 val read =
                     audioRecord?.read(
@@ -175,88 +149,54 @@ class AudioService : Service() {
                         buffer.size
                     )
 
-
-
-
-
                 if (
                     read != null &&
                     read > 0
                 ) {
 
-
-
                     when(
                         clapDetector.detect(buffer)
                     ) {
 
-
                         ClapType.DOUBLE_CLAP -> {
 
-
-                            Logger.log(
-                                "DOUBLE CLAP EVENT"
-                            )
-
+                            Logger.log("DOUBLE CLAP EVENT")
+                            commandProcessor.onDoubleClap()
 
                             sendBroadcast(
-                                Intent(
-                                    "DOUBLE_CLAP"
-                                )
+                                Intent("DOUBLE_CLAP")
                             )
 
-
                         }
-
-
 
                         else -> {
 
                         }
 
                     }
-
-
-
-
-
 
                     when(
                         clapDetector.checkSingleClapTimeout()
                     ) {
 
-
-
                         ClapType.SINGLE_CLAP -> {
 
-
-                            Logger.log(
-                                "SINGLE CLAP EVENT"
-                            )
-
+                            Logger.log("SINGLE CLAP EVENT")
+                            commandProcessor.onSingleClap()
 
                             sendBroadcast(
-                                Intent(
-                                    "SINGLE_CLAP"
-                                )
+                                Intent("SINGLE_CLAP")
                             )
 
-
                         }
-
-
 
                         else -> {
 
                         }
 
-
                     }
 
-
-
                 }
-
 
             }
 
