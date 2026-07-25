@@ -167,7 +167,10 @@ createNotificationChannel()
 
                         ClapType.DOUBLE_CLAP -> {
 
-                            Logger.log("DOUBLE CLAP EVENT")
+                            Logger.log(
+    "DOUBLE CLAP EVENT",
+    LogType.SUCCESS
+)
                             commandProcessor.onDoubleClap()
 
                             sendBroadcast(
@@ -188,7 +191,10 @@ createNotificationChannel()
 
                         ClapType.SINGLE_CLAP -> {
 
-                            Logger.log("SINGLE CLAP EVENT")
+                            Logger.log(
+    "SINGLE CLAP EVENT",
+    LogType.INFO
+)
                             commandProcessor.onSingleClap()
 
                             sendBroadcast(
