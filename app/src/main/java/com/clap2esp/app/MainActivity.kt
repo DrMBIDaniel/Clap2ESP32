@@ -13,6 +13,10 @@ import android.widget.TextView
 import android.content.ClipData
 import android.content.ClipboardManager
 import com.clap2esp.app.settings.SettingsActivity
+import android.graphics.Color
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 
 class MainActivity : AppCompatActivity() {
 
@@ -155,4 +159,27 @@ val clearLogButton=findViewById<Button>(R.id.clearLogButton)
             )
         }
     }
+
+    private fun buildColoredLog(): SpannableStringBuilder {
+
+    val builder = SpannableStringBuilder()
+
+    val lines = Logger.getLogs().split("\n")
+
+    for (line in lines) {
+
+        val start = builder.length
+
+        builder.append(line)
+        builder.append("\n")
+
+        val color = when {
+
+            "[SUCCESS]" in line ||
+            "[OK]" in line ->
+                Color.rgb(0, 180, 0)
+
+            "[ERROR]" in line ->
+                Color.RED
+            
 }
