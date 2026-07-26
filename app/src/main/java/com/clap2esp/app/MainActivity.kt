@@ -162,7 +162,7 @@ val clearLogButton=findViewById<Button>(R.id.clearLogButton)
         }
     }
 
-    private fun buildColoredLog(): SpannableStringBuilder {
+   private fun buildColoredLog(): SpannableStringBuilder {
 
     val builder = SpannableStringBuilder()
 
@@ -177,107 +177,101 @@ val clearLogButton=findViewById<Button>(R.id.clearLogButton)
         builder.append(line)
         builder.append("\n")
 
-        // ---------- Время ----------
-        if (line.length >= 10) {
+        val timeEnd =
+            line.indexOf("]") + 1
 
+        if (timeEnd > 0) {
             builder.setSpan(
-                ForegroundColorSpan(Color.rgb(140,140,140)),
+                ForegroundColorSpan(Color.GRAY),
                 start,
-                start + 10,
+                start + timeEnd,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
             )
-
         }
 
-        // ---------- Тип ----------
-        when {
+        val typeStart = line.indexOf("[", timeEnd)
+        val typeEnd = line.indexOf("]", typeStart) + 1
 
-            line.contains("[INF]") -> colorTag(
-                builder,
-                line,
-                start,
-                "[INF]",
-                Color.rgb(70,170,255)
+        if (typeStart >= 0 && typeEnd > typeStart) {
+
+            val color = when {
+
+                "[INF]" in line ->
+                    Color.rgb(80,180,255)
+
+                "[OK ]" in line ->
+                    Color.rgb(0,220,0)
+
+                "[WRN]" in line ->
+                    Color.rgb(255,180,0)
+
+                "[ERR]" in line ->
+                    Color.rgb(255,70,70)
+
+                "[DBG]" in line ->
+                    Color.rgb(180,180,180)
+
+                else ->
+                    Color.WHITE
+            }
+
+            builder.setSpan(
+                ForegroundColorSpan(color),
+                start + typeStart,
+                start + typeEnd,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
             )
-
-            line.contains("[OK ]") -> colorTag(
-                builder,
-                line,
-                start,
-                "[OK ]",
-                Color.rgb(0,220,80)
-            )
-
-            line.contains("[WRN]") -> colorTag(
-                builder,
-                line,
-                start,
-                "[WRN]",
-                Color.rgb(255,170,0)
-            )
-
-            line.contains("[ERR]") -> colorTag(
-                builder,
-                line,
-                start,
-                "[ERR]",
-                Color.rgb(255,70,70)
-            )
-
-            line.contains("[DBG]") -> colorTag(
-                builder,
-                line,
-                start,
-                "[DBG]",
-                Color.rgb(210,120,255)
-            )
-
         }
 
-        // ---------- Категория ----------
+        val catStart = line.indexOf("[", typeEnd)
+        val catEnd = line.indexOf("]", catStart) + 1
 
-        when {
+        if (catStart >= 0 && catEnd > catStart) {
 
-            line.contains("[SYS]") -> colorTag(
-                builder,
-                line,
-                start,
-                "[SYS]",
-                Color.rgb(0,200,255)
+            val color = when {
+
+                "[SYS]" in line ->
+                    Color.rgb(255,255,255)
+
+                "[AUD]" in line ->
+                    Color.rgb(170,120,255)
+
+                "[NET]" in line ->
+                    Color.rgb(0,255,255)
+
+                "[DBG]" in line ->
+                    Color.rgb(140,140,140)
+
+                else ->
+                    Color.WHITE
+            }
+
+            builder.setSpan(
+                ForegroundColorSpan(color),
+                start + catStart,
+                start + catEnd,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
             )
+        }
 
-            line.contains("[AUD]") -> colorTag(
-                builder,
-                line,
-                start,
-                "[AUD]",
-                Color.rgb(255,220,0)
+        val messageStart =
+            line.indexOf("]", catEnd) + 2
+
+        if (messageStart > 1 && messageStart < line.length) {
+
+            builder.setSpan(
+                ForegroundColorSpan(Color.WHITE),
+                start + messageStart,
+                start + line.length,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
             )
-
-            line.contains("[NET]") -> colorTag(
-                builder,
-                line,
-                start,
-                "[NET]",
-                Color.rgb(0,255,200)
-            )
-
-            line.contains("[DBG]") -> colorTag(
-                builder,
-                line,
-                start,
-                "[DBG]",
-                Color.rgb(200,120,255)
-            )
-
         }
 
     }
 
     return builder
-
 }
-
+   
     private fun colorTag(
 
     builder: SpannableStringBuilder,
