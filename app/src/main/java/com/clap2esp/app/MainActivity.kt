@@ -19,6 +19,7 @@ import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.graphics.Typeface
 import android.text.style.StyleSpan
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -307,15 +308,7 @@ Toast.makeText(
     return builder
 }
    
-    private fun colorTag(
-
-    builder: SpannableStringBuilder,
-    line: String,
-    start: Int,
-    tag: String,
-    color: Int
-
-) {
+    {
 
     val index = line.indexOf(tag)
 
