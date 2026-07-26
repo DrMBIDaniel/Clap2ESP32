@@ -17,6 +17,8 @@ import android.graphics.Color
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
+import android.graphics.Typeface
+import android.text.style.StyleSpan
 
 class MainActivity : AppCompatActivity() {
 
@@ -170,106 +172,126 @@ val clearLogButton=findViewById<Button>(R.id.clearLogButton)
 
         if (line.isBlank()) continue
 
-        // ---------- Время ----------
-        val timeEnd = line.indexOf("]") + 1
+        val start = builder.length
 
-        if (timeEnd <= 0) {
-            builder.append(line)
-            builder.append("\n")
-            continue
-        }
-
-        val time = line.substring(0, timeEnd)
-        val rest = line.substring(timeEnd)
-
-        val secondOpen = rest.indexOf("[")
-        val secondClose = rest.indexOf("]")
-
-        if (secondOpen == -1 || secondClose == -1) {
-            val parts = line.split(" ", limit = 2)
-
-val header = parts[0]
-
-val message =
-    if (parts.size > 1)
-        parts[1]
-    else
-        ""
-
-builder.append(header)
-
-builder.append(" ")
-
-builder.append(message)
-
-builder.append("\n")
-            continue
-        }
-
-        val type =
-            rest.substring(secondOpen, secondClose + 1)
-
-        val message =
-            rest.substring(secondClose + 1)
-
-        // ---------- Время ----------
-        val timeStart = builder.length
-        builder.append(time)
-        builder.setSpan(
-            ForegroundColorSpan(Color.LTGRAY),
-            timeStart,
-            builder.length,
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-
-        // Пробел
-        builder.append(" ")
-
-        // ---------- Тип ----------
-        val typeStart = builder.length
-        builder.append(type)
-
-        val typeColor = when (type) {
-
-            "[INFO]" ->
-                Color.rgb(80, 170, 255)
-
-            "[OK]" ->
-                Color.rgb(0, 180, 0)
-
-            "[WARN]" ->
-                Color.rgb(255, 140, 0)
-
-            "[ERROR]" ->
-                Color.RED
-
-            else ->
-                Color.WHITE
-        }
-
-        builder.setSpan(
-            ForegroundColorSpan(typeColor),
-            typeStart,
-            builder.length,
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-
-        // ---------- Сообщение ----------
-        val messageStart = builder.length
-
-        builder.append(message)
-
-        builder.setSpan(
-            ForegroundColorSpan(Color.WHITE),
-            messageStart,
-            builder.length,
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-
+        builder.append(line)
         builder.append("\n")
+
+        //-----------------------
+        // Цвет времени
+        //-----------------------
+
+        val timeEnd = line.indexOf("]")
+
+        if (timeEnd != -1) {
+
+            builder.setSpan(
+                ForegroundColorSpan(Color.rgb(120,120,120)),
+                start,
+                start + timeEnd + 1,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+        }
+
+        //-----------------------
+        // Цвет типа сообщения
+        //-----------------------
+
+        val secondOpen = line.indexOf("[", timeEnd + 1)
+        val secondClose = line.indexOf("]", secondOpen)
+
+        if (secondOpen != -1 && secondClose != -1) {
+
+            val tag = line.substring(secondOpen + 1, secondClose)
+
+            val color = when(tag.trim()) {
+
+                "INF" ->
+                    Color.rgb(70,170,255)
+
+                "OK" ->
+                    Color.rgb(0,220,0)
+
+                "WRN" ->
+                    Color.rgb(255,170,0)
+
+                "ERR" ->
+                    Color.rgb(255,60,60)
+
+                else ->
+                    Color.WHITE
+            }
+
+            builder.setSpan(
+                ForegroundColorSpan(color),
+                start + secondOpen,
+                start + secondClose + 1,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+        }
+
+        //-----------------------
+        // Цвет категории
+        //-----------------------
+
+        val thirdOpen = line.indexOf("[", secondClose + 1)
+        val thirdClose = line.indexOf("]", thirdOpen)
+
+        if (thirdOpen != -1 && thirdClose != -1) {
+
+            val tag = line.substring(thirdOpen + 1, thirdClose)
+
+            val color = when(tag) {
+
+                "SYS" ->
+                    Color.WHITE
+
+                "AUD" ->
+                    Color.rgb(0,255,255)
+
+                "NET" ->
+                    Color.rgb(210,120,255)
+
+                "DBG" ->
+                    Color.rgb(255,255,0)
+
+                else ->
+                    Color.WHITE
+
+            }
+
+            builder.setSpan(
+                ForegroundColorSpan(color),
+                start + thirdOpen,
+                start + thirdClose + 1,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+        }
+
+        //-----------------------
+        // Цвет текста сообщения
+        //-----------------------
+
+        val messageStart = line.indexOf(" ", thirdClose)
+
+        if (messageStart != -1) {
+
+            builder.setSpan(
+                ForegroundColorSpan(Color.WHITE),
+                start + messageStart + 1,
+                start + line.length,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+        }
+
     }
 
     return builder
+
 }
             
 }
