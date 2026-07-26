@@ -60,7 +60,11 @@ Logger.setOnLogChanged {
 
 }
 
-        Logger.log("MainActivity created")
+        Logger.log(
+    "Application started",
+    LogType.INFO,
+    LogCategory.SYS
+)
 
         checkMicrophonePermission()
 
@@ -83,7 +87,11 @@ val clearLogButton=findViewById<Button>(R.id.clearLogButton)
                 serviceIntent
             )
 
-            Logger.log("Start button pressed")
+           Logger.log(
+    "Start button pressed",
+    LogType.INFO,
+    LogCategory.SYS
+)
         }
 
         stopButton.setOnClickListener {
@@ -95,14 +103,23 @@ val clearLogButton=findViewById<Button>(R.id.clearLogButton)
 
             stopService(serviceIntent)
 
-            Logger.log("Stop button pressed")
+            Logger.log(
+    "Stop button pressed",
+    LogType.INFO,
+    LogCategory.SYS
+)
+            
         }
 
         settingsButton.setOnClickListener{
     startActivity(Intent(this,SettingsActivity::class.java))
 }
         testButton.setOnClickListener{
-    Logger.log("Test button pressed")
+     Logger.log(
+    "Test button pressed",
+    LogType.INFO,
+    LogCategory.SYS
+)
 }
 
         copyLogButton.setOnClickListener {
@@ -116,7 +133,11 @@ val clearLogButton=findViewById<Button>(R.id.clearLogButton)
 
     clipboard.setPrimaryClip(clip)
 
-    Logger.log("Log copied")
+    Logger.log(
+    "Log copied",
+    LogType.SUCCESS,
+    LogCategory.SYS
+)
     android.widget.Toast.makeText(
     this,
     "Log copied to clipboard",
@@ -127,10 +148,17 @@ val clearLogButton=findViewById<Button>(R.id.clearLogButton)
         clearLogButton.setOnClickListener {
 
     Logger.clear()
-    android.widget.Toast.makeText(
+
+Logger.log(
+    "Log cleared",
+    LogType.INFO,
+    LogCategory.SYS
+)
+
+Toast.makeText(
     this,
     "Log cleared",
-    android.widget.Toast.LENGTH_SHORT
+    Toast.LENGTH_SHORT
 ).show()
 
 }
@@ -146,11 +174,18 @@ val clearLogButton=findViewById<Button>(R.id.clearLogButton)
             ) == PackageManager.PERMISSION_GRANTED
         ) {
 
-            Logger.log("Microphone permission granted")
-
+           Logger.log(
+    "Microphone permission granted",
+    LogType.SUCCESS,
+    LogCategory.SYS
+)
         } else {
 
-            Logger.log("Requesting microphone permission")
+            Logger.log(
+    "Requesting microphone permission",
+    LogType.WARNING,
+    LogCategory.SYS
+)
 
             ActivityCompat.requestPermissions(
                 this,
