@@ -308,24 +308,4 @@ Toast.makeText(
     return builder
 }
    
-    {
-
-    val index = line.indexOf(tag)
-
-    if (index == -1) return
-
-    builder.setSpan(
-
-        ForegroundColorSpan(color),
-
-        start + index,
-
-        start + index + tag.length,
-
-        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-
-    )
-
-}
-            
 }
