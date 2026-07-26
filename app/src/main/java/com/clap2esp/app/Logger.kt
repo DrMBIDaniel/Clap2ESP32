@@ -51,7 +51,16 @@ object Logger {
 
 }
 
-logs.add("[$time][$prefix][$categoryPrefix] $message")
+val line = String.format(
+    Locale.US,
+    "[%-8s][%-3s][%-3s] %s",
+    time,
+    prefix,
+    categoryPrefix,
+    message
+)
+
+logs.add(line)
     while (logs.size > 300) {
         logs.removeAt(0)
     }
