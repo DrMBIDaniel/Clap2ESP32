@@ -6,6 +6,7 @@ import com.clap2esp.app.settings.SettingsRepository
 import java.net.HttpURLConnection
 import java.net.URL
 import com.clap2esp.app.LogType
+import com.clap2esp.app.LogCategory
 
 class HttpRequestAgent(
     context: Context
@@ -45,10 +46,12 @@ class HttpRequestAgent(
                 else -> "http://$address/off"
             }
 
-            Logger.log(
-    "HTTP: $url",
-    LogType.INFO
+           Logger.log(
+    "GET $command",
+    LogType.INFO,
+    LogCategory.NET
 )
+           
             val connection =
                 URL(url).openConnection() as HttpURLConnection
 
@@ -60,14 +63,17 @@ class HttpRequestAgent(
 
             if (code == 200) {
     Logger.log(
-        "HTTP Response: $code",
-        LogType.SUCCESS
-    )
+    "HTTP $code",
+    LogType.SUCCESS,
+    LogCategory.NET
+)
+    
 } else {
     Logger.log(
-        "HTTP Response: $code",
-        LogType.WARNING
-    )
+    "HTTP $code",
+    LogType.WARNING,
+    LogCategory.NET
+)
 }
 
             connection.disconnect()
@@ -79,8 +85,9 @@ class HttpRequestAgent(
         catch (e: Exception) {
 
     Logger.log(
-    "HTTP Error: ${e.javaClass.simpleName}",
-    LogType.ERROR
+    "HTTP ${e.javaClass.simpleName}",
+    LogType.ERROR,
+    LogCategory.NET
 )
 
     false
