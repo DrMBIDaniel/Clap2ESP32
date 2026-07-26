@@ -15,6 +15,7 @@ import android.util.Log
 import com.clap2esp.app.command.CommandProcessor
 import com.clap2esp.app.network.HttpRequestAgent
 import com.clap2esp.app.LogType
+import com.clap2esp.app.LogCategory
 
 class AudioService : Service() {
 
@@ -34,7 +35,8 @@ class AudioService : Service() {
 
 Logger.log(
     "AudioService created",
-    LogType.INFO
+    LogType.INFO,
+    LogCategory.SYS
 )
 
 requestAgent = HttpRequestAgent(this)
@@ -69,7 +71,8 @@ createNotificationChannel()
 
         Logger.log(
     "Foreground service started",
-    LogType.SUCCESS
+    LogType.SUCCESS,
+    LogCategory.SYS
 )
     }
 
@@ -81,21 +84,11 @@ createNotificationChannel()
 
         startListening()
 
-
         return START_NOT_STICKY
 
     }
 
-
-
-
-
-
-
-
     private fun startListening() {
-
-
 
         if (isRecording) {
 
@@ -103,19 +96,12 @@ createNotificationChannel()
 
         }
 
-
-
-
         val bufferSize =
             AudioRecord.getMinBufferSize(
                 44100,
                 AudioFormat.CHANNEL_IN_MONO,
                 AudioFormat.ENCODING_PCM_16BIT
             )
-
-
-
-
 
         audioRecord =
             AudioRecord(
@@ -126,22 +112,21 @@ createNotificationChannel()
                 bufferSize
             )
 
-
-
-
-
         audioRecord?.startRecording()
-
-
-
+        Logger.log(
+    "44100 Hz | PCM16 | Mono",
+    LogType.INFO,
+    LogCategory.AUD
+)
+        
         isRecording = true
 
-
-
         Logger.log(
-    "Microphone recording started",
-    LogType.SUCCESS
+    "Listening started",
+    LogType.SUCCESS,
+    LogCategory.AUD
 )
+        
         Thread {
 
             val buffer =
@@ -168,9 +153,11 @@ createNotificationChannel()
                         ClapType.DOUBLE_CLAP -> {
 
                             Logger.log(
-    "DOUBLE CLAP EVENT",
-    LogType.SUCCESS
-)
+                                "DOUBLE CLAP",
+                                LogType.SUCCESS,
+                                LogCategory.AUD
+                                )
+                            
                             commandProcessor.onDoubleClap()
 
                             sendBroadcast(
@@ -191,10 +178,12 @@ createNotificationChannel()
 
                         ClapType.SINGLE_CLAP -> {
 
-                            Logger.log(
-    "SINGLE CLAP EVENT",
-    LogType.INFO
-)
+                          Logger.log(
+                        "SINGLE CLAP",
+                        LogType.INFO,
+                        LogCategory.AUD
+                        )
+                          
                             commandProcessor.onSingleClap()
 
                             sendBroadcast(
@@ -213,30 +202,16 @@ createNotificationChannel()
 
             }
 
-
-
         }.start()
-
-
 
     }
 
-
-
-
-
-
-
-
     private fun createNotificationChannel() {
-
-
 
         if (
             Build.VERSION.SDK_INT >=
             Build.VERSION_CODES.O
         ) {
-
 
             val channel =
                 NotificationChannel(
@@ -245,54 +220,33 @@ createNotificationChannel()
                     NotificationManager.IMPORTANCE_LOW
                 )
 
-
-
             val manager =
                 getSystemService(
                     NotificationManager::class.java
                 )
 
-
-
             manager.createNotificationChannel(
                 channel
             )
 
-
         }
-
 
     }
 
-
-
-
-
-
-
-
     override fun onDestroy() {
 
-
         Logger.log(
-    "AudioService stopped",
-    LogType.WARNING
+    "Listening stopped",
+    LogType.WARNING,
+    LogCategory.SYS
 )
-
-
-
+        
         isRecording = false
-
-
-
-
         try {
 
             audioRecord?.stop()
 
-
         } catch(e: Exception) {
-
 
             Log.e(
                 "CLAP",
