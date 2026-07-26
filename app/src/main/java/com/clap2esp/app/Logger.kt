@@ -10,6 +10,14 @@ enum class LogType {
     WARNING,
     ERROR
 }
+
+enum class LogCategory {
+    SYS,
+    AUD,
+    NET,
+    DBG
+}
+
 object Logger {
 
     private val logs = mutableListOf<String>()
@@ -22,7 +30,8 @@ object Logger {
 
     fun log(
     message: String,
-    type: LogType = LogType.INFO
+    type: LogType = LogType.INFO,
+    category: LogCategory = LogCategory.SYS
 ) {
 
     val time = SimpleDateFormat(
@@ -31,14 +40,25 @@ object Logger {
     ).format(Date())
 
     val prefix = when(type){
-    LogType.INFO -> "INFO"
-    LogType.SUCCESS -> "OK"
-    LogType.WARNING -> "WARN"
-    LogType.ERROR -> "ERROR"
+    LogType.INFO -> "INF"
+    LogType.SUCCESS -> "OK "
+    LogType.WARNING -> "WRN"
+    LogType.ERROR -> "ERR"
 }
 
-logs.add("[$time][$prefix] $message")
+    val categoryPrefix = when (category) {
 
+    LogCategory.SYS -> "SYS"
+
+    LogCategory.AUD -> "AUD"
+
+    LogCategory.NET -> "NET"
+
+    LogCategory.DBG -> "DBG"
+
+}
+
+logs.add("[$time][$prefix][$categoryPrefix] $message")
     while (logs.size > 300) {
         logs.removeAt(0)
     }
