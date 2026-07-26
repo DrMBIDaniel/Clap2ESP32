@@ -177,113 +177,97 @@ val clearLogButton=findViewById<Button>(R.id.clearLogButton)
         builder.append(line)
         builder.append("\n")
 
-        //-----------------------
-        // Цвет времени
-        //-----------------------
-
-        val timeEnd = line.indexOf("]")
-
-        if (timeEnd != -1) {
+        // ---------- Время ----------
+        if (line.length >= 10) {
 
             builder.setSpan(
-                ForegroundColorSpan(Color.rgb(120,120,120)),
+                ForegroundColorSpan(Color.rgb(140,140,140)),
                 start,
-                start + timeEnd + 1,
+                start + 10,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
             )
 
         }
 
-        //-----------------------
-        // Цвет типа сообщения
-        //-----------------------
+        // ---------- Тип ----------
+        when {
 
-        val secondOpen = line.indexOf("[", timeEnd + 1)
-        val secondClose = line.indexOf("]", secondOpen)
+            line.contains("[INF]") -> colorTag(
+                builder,
+                line,
+                start,
+                "[INF]",
+                Color.rgb(70,170,255)
+            )
 
-        if (secondOpen != -1 && secondClose != -1) {
+            line.contains("[OK ]") -> colorTag(
+                builder,
+                line,
+                start,
+                "[OK ]",
+                Color.rgb(0,220,80)
+            )
 
-            val tag = line.substring(secondOpen + 1, secondClose)
+            line.contains("[WRN]") -> colorTag(
+                builder,
+                line,
+                start,
+                "[WRN]",
+                Color.rgb(255,170,0)
+            )
 
-            val color = when(tag.trim()) {
+            line.contains("[ERR]") -> colorTag(
+                builder,
+                line,
+                start,
+                "[ERR]",
+                Color.rgb(255,70,70)
+            )
 
-                "INF" ->
-                    Color.rgb(70,170,255)
-
-                "OK" ->
-                    Color.rgb(0,220,0)
-
-                "WRN" ->
-                    Color.rgb(255,170,0)
-
-                "ERR" ->
-                    Color.rgb(255,60,60)
-
-                else ->
-                    Color.WHITE
-            }
-
-            builder.setSpan(
-                ForegroundColorSpan(color),
-                start + secondOpen,
-                start + secondClose + 1,
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            line.contains("[DBG]") -> colorTag(
+                builder,
+                line,
+                start,
+                "[DBG]",
+                Color.rgb(210,120,255)
             )
 
         }
 
-        //-----------------------
-        // Цвет категории
-        //-----------------------
+        // ---------- Категория ----------
 
-        val thirdOpen = line.indexOf("[", secondClose + 1)
-        val thirdClose = line.indexOf("]", thirdOpen)
+        when {
 
-        if (thirdOpen != -1 && thirdClose != -1) {
-
-            val tag = line.substring(thirdOpen + 1, thirdClose)
-
-            val color = when(tag) {
-
-                "SYS" ->
-                    Color.WHITE
-
-                "AUD" ->
-                    Color.rgb(0,255,255)
-
-                "NET" ->
-                    Color.rgb(210,120,255)
-
-                "DBG" ->
-                    Color.rgb(255,255,0)
-
-                else ->
-                    Color.WHITE
-
-            }
-
-            builder.setSpan(
-                ForegroundColorSpan(color),
-                start + thirdOpen,
-                start + thirdClose + 1,
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            line.contains("[SYS]") -> colorTag(
+                builder,
+                line,
+                start,
+                "[SYS]",
+                Color.rgb(0,200,255)
             )
 
-        }
+            line.contains("[AUD]") -> colorTag(
+                builder,
+                line,
+                start,
+                "[AUD]",
+                Color.rgb(255,220,0)
+            )
 
-        //-----------------------
-        // Цвет текста сообщения
-        //-----------------------
+            line.contains("[NET]") -> colorTag(
+                builder,
+                line,
+                start,
+                "[NET]",
+                Color.rgb(0,255,200)
+            )
 
-        val messageStart = line.indexOf(" ", thirdClose)
-
-        if (messageStart != -1) {
-
-            builder.setSpan(
-                ForegroundColorSpan(Color.WHITE),
-                start + messageStart + 1,
-                start + line.length,
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            line.contains("[DBG]") -> colorTag(
+                builder,
+                line,
+                start,
+                "[DBG]",
+                Color.rgb(200,120,255)
             )
 
         }
@@ -291,6 +275,34 @@ val clearLogButton=findViewById<Button>(R.id.clearLogButton)
     }
 
     return builder
+
+}
+
+    private fun colorTag(
+
+    builder: SpannableStringBuilder,
+    line: String,
+    start: Int,
+    tag: String,
+    color: Int
+
+) {
+
+    val index = line.indexOf(tag)
+
+    if (index == -1) return
+
+    builder.setSpan(
+
+        ForegroundColorSpan(color),
+
+        start + index,
+
+        start + index + tag.length,
+
+        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+
+    )
 
 }
             
