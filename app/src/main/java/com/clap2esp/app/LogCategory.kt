@@ -1,8 +1,8 @@
 enum class LogCategory {
 
-    SYSTEM,
-    AUDIO,
-    NETWORK,
-    DEBUG
+    SYS,
+    AUD,
+    NET,
+    DBG
 
 }
