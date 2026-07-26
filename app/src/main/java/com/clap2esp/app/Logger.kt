@@ -11,13 +11,6 @@ enum class LogType {
     ERROR
 }
 
-enum class LogCategory {
-    SYS,
-    AUD,
-    NET,
-    DBG
-}
-
 object Logger {
 
     private val logs = mutableListOf<String>()
