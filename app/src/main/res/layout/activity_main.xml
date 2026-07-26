@@ -109,6 +109,7 @@
         android:scrollbars="vertical"
         android:gravity="top|start"
         android:textIsSelectable="true"
-        android:textSize="14sp"/>
+        android:textSize="14sp"
+        android:fontFamily="monospace"/>
 
 </LinearLayout>
