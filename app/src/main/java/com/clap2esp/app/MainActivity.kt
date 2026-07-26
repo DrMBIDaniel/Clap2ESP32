@@ -186,8 +186,23 @@ val clearLogButton=findViewById<Button>(R.id.clearLogButton)
         val secondClose = rest.indexOf("]")
 
         if (secondOpen == -1 || secondClose == -1) {
-            builder.append(line)
-            builder.append("\n")
+            val parts = line.split(" ", limit = 2)
+
+val header = parts[0]
+
+val message =
+    if (parts.size > 1)
+        parts[1]
+    else
+        ""
+
+builder.append(header)
+
+builder.append(" ")
+
+builder.append(message)
+
+builder.append("\n")
             continue
         }
 
