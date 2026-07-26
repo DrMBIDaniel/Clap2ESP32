@@ -168,32 +168,90 @@ val clearLogButton=findViewById<Button>(R.id.clearLogButton)
 
     for (line in lines) {
 
-        val start = builder.length
+        if (line.isBlank()) continue
 
-        builder.append(line)
-        builder.append("\n")
+        // ---------- Время ----------
+        val timeEnd = line.indexOf("]") + 1
 
-        val color = when {
+        if (timeEnd <= 0) {
+            builder.append(line)
+            builder.append("\n")
+            continue
+        }
 
-            "[OK]" in line ->
+        val time = line.substring(0, timeEnd)
+        val rest = line.substring(timeEnd)
+
+        val secondOpen = rest.indexOf("[")
+        val secondClose = rest.indexOf("]")
+
+        if (secondOpen == -1 || secondClose == -1) {
+            builder.append(line)
+            builder.append("\n")
+            continue
+        }
+
+        val type =
+            rest.substring(secondOpen, secondClose + 1)
+
+        val message =
+            rest.substring(secondClose + 1)
+
+        // ---------- Время ----------
+        val timeStart = builder.length
+        builder.append(time)
+        builder.setSpan(
+            ForegroundColorSpan(Color.LTGRAY),
+            timeStart,
+            builder.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        // Пробел
+        builder.append(" ")
+
+        // ---------- Тип ----------
+        val typeStart = builder.length
+        builder.append(type)
+
+        val typeColor = when (type) {
+
+            "[INFO]" ->
+                Color.rgb(80, 170, 255)
+
+            "[OK]" ->
                 Color.rgb(0, 180, 0)
 
-            "[ERROR]" in line ->
-                Color.RED
-
-            "[WARN]" in line ->
+            "[WARN]" ->
                 Color.rgb(255, 140, 0)
+
+            "[ERROR]" ->
+                Color.RED
 
             else ->
                 Color.WHITE
         }
 
         builder.setSpan(
-            ForegroundColorSpan(color),
-            start,
+            ForegroundColorSpan(typeColor),
+            typeStart,
             builder.length,
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         )
+
+        // ---------- Сообщение ----------
+        val messageStart = builder.length
+
+        builder.append(message)
+
+        builder.setSpan(
+            ForegroundColorSpan(Color.WHITE),
+            messageStart,
+            builder.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        builder.append("\n")
     }
 
     return builder
