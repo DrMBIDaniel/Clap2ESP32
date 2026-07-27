@@ -50,17 +50,19 @@
         android:layout_height="wrap_content"
         android:hint="ESP Address"/>
 
-    <!-- COMMANDS -->
+   <!-- COMMANDS -->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Commands"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_marginTop="24dp"/>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Commands"
+    android:textStyle="bold"
+    android:textSize="18sp"
+    android:layout_marginTop="24dp"/>
 
-    <LinearLayout
+<!-- Toggle -->
+
+<LinearLayout
     android:id="@+id/toggleLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -73,8 +75,10 @@
         android:hint="Toggle Path"/>
 
 </LinearLayout>
-    
-    <LinearLayout
+
+<!-- Primary / Secondary -->
+
+<LinearLayout
     android:id="@+id/onOffLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -84,7 +88,6 @@
         android:id="@+id/primaryPathEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:hint="Primary Path"/>
 
     <EditText
@@ -94,13 +97,15 @@
         android:layout_marginTop="8dp"
         android:hint="Secondary Path"/>
 
-    <EditText
-        android:id="@+id/togglePathEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Toggle Path"/>
+</LinearLayout>
 
-          <!-- SECONDARY SEQUENCE -->
+<!-- Secondary Sequence -->
+
+<LinearLayout
+    android:id="@+id/sequenceLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
@@ -128,12 +133,8 @@
             android:text="Single → Double"/>
 
     </RadioGroup>
-        
+
 </LinearLayout>
-
-
-
-    <!-- MODE -->
 
     <TextView
         android:layout_width="wrap_content"
