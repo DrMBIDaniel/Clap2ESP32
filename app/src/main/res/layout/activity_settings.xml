@@ -241,6 +241,19 @@
             android:text="Save Settings"
             android:layout_marginTop="10dp"/>
 
+        <Button
+            android:id="@+id/testPrimaryButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Test Primary"/>
+
+        <Button
+            android:id="@+id/testSecondaryButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Test Secondary"
+            android:layout_marginTop="8dp"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
