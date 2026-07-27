@@ -75,7 +75,10 @@ class SettingsActivity : AppCompatActivity() {
 
             val newSettings = SettingsModel(
                 espAddress = address,
-                togglePath = pathEdit.text.toString().trim(),
+                togglePath = togglePathEdit.text.toString().trim(),
+                onPath = primaryPathEdit.text.toString().trim(),
+                offPath = secondaryPathEdit.text.toString().trim(),
+                
                 mode = if (toggleMode.isChecked) 0 else 1,
                 sequence = if (doubleSingle.isChecked) 0 else 1,
                 manualTimeout = manualTimeout.isChecked,
