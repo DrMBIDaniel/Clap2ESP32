@@ -5,6 +5,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.clap2esp.app.R
 import com.clap2esp.app.network.ConnectionTester
+import android.view.View
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -21,6 +22,9 @@ class SettingsActivity : AppCompatActivity() {
         
         val toggleMode = findViewById<RadioButton>(R.id.toggleMode)
         val onOffMode = findViewById<RadioButton>(R.id.onOffMode)
+        val toggleLayout = findViewById<LinearLayout>(R.id.toggleLayout)
+        val onOffLayout = findViewById<LinearLayout>(R.id.onOffLayout)
+        val sequenceLayout = findViewById<LinearLayout>(R.id.sequenceLayout)
 
         val doubleSingle = findViewById<RadioButton>(R.id.doubleSingle)
         val singleDouble = findViewById<RadioButton>(R.id.singleDouble)
@@ -49,8 +53,35 @@ class SettingsActivity : AppCompatActivity() {
 
         toggleMode.isChecked = settings.mode == 0
         onOffMode.isChecked = settings.mode == 1
+
+fun updateModeUI() {
+
+    if (toggleMode.isChecked) {
+
+        toggleLayout.visibility = View.VISIBLE
+        onOffLayout.visibility = View.GONE
+        sequenceLayout.visibility = View.GONE
+
+    } else {
+
+        toggleLayout.visibility = View.GONE
+        onOffLayout.visibility = View.VISIBLE
+        sequenceLayout.visibility = View.VISIBLE
+
+    }
+}
+
+updateModeUI()
+        
         doubleSingle.isChecked = settings.sequence == 0
         singleDouble.isChecked = settings.sequence == 1
+        toggleMode.setOnCheckedChangeListener { _, _ ->
+    updateModeUI()
+}
+
+        onOffMode.setOnCheckedChangeListener { _, _ ->
+    updateModeUI()
+}
 
         manualTimeout.isChecked = settings.manualTimeout
         timeoutEdit.setText(settings.timeout.toString())
