@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Clap2ESP Settings"
+            android:text="Clap2ESP32 Settings"
             android:textStyle="bold"
             android:textSize="26sp"/>
 
@@ -293,7 +293,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:gravity="center"
-        android:text="Clap2ESP v0.3"
+        android:text="Clap2ESP32 v0.3"
         android:textColor="#888"/>
 
 </LinearLayout>
