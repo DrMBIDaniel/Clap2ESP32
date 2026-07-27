@@ -49,6 +49,8 @@ class SettingsActivity : AppCompatActivity() {
 
         toggleMode.isChecked = settings.mode == 0
         onOffMode.isChecked = settings.mode == 1
+        doubleSingle.isChecked = settings.sequence == 0
+        singleDouble.isChecked = settings.sequence == 1
 
         manualTimeout.isChecked = settings.manualTimeout
         timeoutEdit.setText(settings.timeout.toString())
