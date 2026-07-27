@@ -16,21 +16,21 @@ class HttpRequestAgent(
 
     override fun sendToggle(): Boolean {
 
-        return sendRequest("toggle")
+    return sendRequest("toggle")
 
-    }
+}
 
-    override fun sendOn(): Boolean {
+override fun sendPrimary(): Boolean {
 
-        return sendRequest("on")
+    return sendRequest("primary")
 
-    }
+}
 
-    override fun sendOff(): Boolean {
+override fun sendSecondary(): Boolean {
 
-        return sendRequest("off")
+    return sendRequest("secondary")
 
-    }
+}
 
     private fun sendRequest(command: String): Boolean {
 
@@ -45,10 +45,10 @@ class HttpRequestAgent(
     "toggle" ->
         "http://$address${settings.togglePath}"
 
-    "on" ->
+    "primary" ->
         "http://$address${settings.onPath}"
 
-    "off" ->
+    "secondary" ->
         "http://$address${settings.offPath}"
 
     else ->
