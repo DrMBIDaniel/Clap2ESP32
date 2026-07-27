@@ -43,42 +43,54 @@ class CommandProcessor(
             LogType.INFO
         )
 
-        if (settings.mode == 0) {
+       if (settings.mode == 0) {
 
-            Logger.log(
-                "Sending TOGGLE command",
-                LogType.SUCCESS
-            )
+    Logger.log(
+        "Sending Toggle Path",
+        LogType.SUCCESS
+    )
 
-            requestAgent.sendToggle()
+    requestAgent.sendToggle()
 
-        } else {
+} else {
 
-            Logger.log(
-                "Sending ON command",
-                LogType.SUCCESS
-            )
+    Logger.log(
+        "Sending Primary Path",
+        LogType.SUCCESS
+    )
 
-            requestAgent.sendOn()
-        }
+    requestAgent.sendOn()
+}
 
         processSequence(ClapType.DOUBLE)
     }
 
-    fun onSequenceDoubleSingle() {
+   fun onSequenceDoubleSingle() {
+
+    val settings = repository.load()
+
+    if (settings.mode == 0) {
 
         Logger.log(
-            "Sequence DOUBLE → SINGLE detected",
-            LogType.SUCCESS
+            "Complex sequences ignored (Toggle mode)",
+            LogType.WARNING
         )
 
-        Logger.log(
-            "Sending OFF command",
-            LogType.SUCCESS
-        )
-
-        requestAgent.sendOff()
+        return
     }
+
+    Logger.log(
+        "Sequence DOUBLE → SINGLE detected",
+        LogType.SUCCESS
+    )
+
+    Logger.log(
+        "Sending Secondary Path",
+        LogType.SUCCESS
+    )
+
+    requestAgent.sendOff()
+}
 
     fun onSequenceSingleDouble() {
 
