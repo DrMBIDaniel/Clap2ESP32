@@ -17,12 +17,13 @@ import com.clap2esp.app.network.HttpRequestAgent
 import com.clap2esp.app.LogType
 import com.clap2esp.app.LogCategory
 import com.clap2esp.app.settings.SettingsRepository
-import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
 
 class AudioService : Service() {
+
+    private lateinit var repository: SettingsRepository
 
     private fun vibrate() {
 
@@ -49,7 +50,7 @@ class AudioService : Service() {
 
         vibrator.vibrate(
             VibrationEffect.createOneShot(
-                40,
+                70,
                 VibrationEffect.DEFAULT_AMPLITUDE
             )
         )
@@ -75,9 +76,11 @@ class AudioService : Service() {
 
        super.onCreate()
 
-       Logger.initialize(SettingsRepository(this))
+        repository = SettingsRepository(this)
+
+        Logger.initialize(repository)
        
-       clapDetector = ClapDetector(this)
+        clapDetector = ClapDetector(this)
 
 Logger.log(
     "AudioService created",
