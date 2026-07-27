@@ -14,24 +14,32 @@ enum class ClapType {
 class ClapDetector(
     context: Context
 ) {
-    private val repository =
-    SettingsRepository(context)
 
-    private val threshold = 12000
+private companion object {
 
-    private fun getDoubleClapInterval(): Long {
-
-    val settings = repository.load()
-
-    return if (settings.manualTimeout) {
-        settings.timeout.toLong()
-    } else {
-        800L
-    }
+    const val DEFAULT_THRESHOLD = 12000
+    const val DEFAULT_DOUBLE_CLAP_TIMEOUT = 800L
+    const val MIN_CLAP_INTERVAL = 150L
 
 }
     
-    private val minClapInterval = 150L
+    private val repository =
+    SettingsRepository(context)
+
+    private val threshold = DEFAULT_THRESHOLD
+    
+   private fun getDoubleClapInterval(): Long {
+
+    val settings = repository.load()
+
+    return if (settings.manualTimeout)
+        settings.timeout.toLong()
+    else
+        DEFAULT_DOUBLE_CLAP_TIMEOUT
+
+}
+    
+    private val minClapInterval = MIN_CLAP_INTERVAL
 
     private var firstClapTime = 0L
 
@@ -56,20 +64,14 @@ class ClapDetector(
 
         }
 
-
-
         val currentTime =
             System.currentTimeMillis()
-
-
 
         if (maxAmplitude < threshold) {
 
             return ClapType.NONE
 
         }
-
-
 
         if (
             currentTime - lastDetectionTime
@@ -79,101 +81,63 @@ class ClapDetector(
             return ClapType.NONE
 
         }
-
-
-
+        
         lastDetectionTime = currentTime
 
-
-
-
-
         if (!waitingSecondClap) {
-
-
             waitingSecondClap = true
-
-
             firstClapTime = currentTime
 
-
-
-            Logger.log(
-    "First clap amplitude=$maxAmplitude",
-    LogType.INFO
+           Logger.log(
+    "First clap detected (amp=$maxAmplitude)",
+    LogType.INFO,
+    LogCategory.AUD
 )
-
-
-
+           
             return ClapType.NONE
 
         }
 
-
-
-
-
         val delay =
             currentTime - firstClapTime
 
-
-
-
         if (delay <= getDoubleClapInterval()) {
-
-
             waitingSecondClap = false
 
-
-
             Logger.log(
-    "Double clap delay=${delay}ms",
-    LogType.SUCCESS
+    "Double clap detected (${delay} ms)",
+    LogType.SUCCESS,
+    LogCategory.AUD
 )
-
-
 
             return ClapType.DOUBLE_CLAP
 
         }
 
-
-
         firstClapTime = currentTime
-
 
         return ClapType.NONE
 
     }
 
-
-
-
-
     fun checkSingleClapTimeout(): ClapType {
-
 
         if (
             waitingSecondClap &&
             System.currentTimeMillis()
 - firstClapTime > getDoubleClapInterval()
         ) {
-
-
             waitingSecondClap = false
-
-
 
            Logger.log(
     "Single clap detected",
-    LogType.INFO
+    LogType.SUCCESS,
+    LogCategory.AUD
 )
-
 
             return ClapType.SINGLE_CLAP
 
         }
-
 
         return ClapType.NONE
 
