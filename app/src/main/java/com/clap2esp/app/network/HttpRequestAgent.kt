@@ -40,7 +40,7 @@ class HttpRequestAgent(
 
             val address = settings.espAddress
 
-            val url = when(command){
+            val url = when (command) {
 
     "toggle" ->
         "http://$address${settings.togglePath}"
