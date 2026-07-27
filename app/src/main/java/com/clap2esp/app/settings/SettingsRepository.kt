@@ -10,6 +10,9 @@ class SettingsRepository(private val context:Context){
         prefs.edit()
             .putString("espAddress",settings.espAddress)
             .putString("togglePath",settings.togglePath)
+            .putString("onPath",settings.onPath)
+            .putString("offPath",settings.offPath)
+            
             .putInt("mode",settings.mode)
             .putInt("sequence",settings.sequence)
             .putBoolean("manualTimeout",settings.manualTimeout)
@@ -25,14 +28,19 @@ class SettingsRepository(private val context:Context){
 
     fun load():SettingsModel{
         return SettingsModel(
-            espAddress=prefs.getString("espAddress","") ?: "",
-            togglePath=prefs.getString("togglePath","/toggle") ?: "/toggle",
+            espAddress = prefs.getString("espAddress","") ?: "",
+            togglePath = prefs.getString("togglePath","/toggle") ?: "/toggle",
+
+            onPath = prefs.getString("onPath","/on") ?: "/on",
+            offPath = prefs.getString("offPath","/off") ?: "/off",
+            
             mode=prefs.getInt("mode",0),
             sequence=prefs.getInt("sequence",0),
             manualTimeout=prefs.getBoolean("manualTimeout",false),
             timeout=prefs.getInt("timeout",550),
             vibration=prefs.getBoolean("vibration",true),
-          showSystemLog =
+          
+            showSystemLog =
     prefs.getBoolean("showSystemLog", true),
 
 showAudioLog =
