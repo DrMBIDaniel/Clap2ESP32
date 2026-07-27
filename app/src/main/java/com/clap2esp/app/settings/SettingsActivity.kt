@@ -38,6 +38,8 @@ class SettingsActivity : AppCompatActivity() {
 
         val saveButton = findViewById<Button>(R.id.saveButton)
         val testButton = findViewById<Button>(R.id.testButton)
+        val testPrimaryButton = findViewById<Button>(R.id.testPrimaryButton)
+        val testSecondaryButton = findViewById<Button>(R.id.testSecondaryButton)
 
         val settings = repository.load()
 
