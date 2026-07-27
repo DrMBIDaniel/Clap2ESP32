@@ -44,6 +44,12 @@ class SettingsActivity : AppCompatActivity() {
         val testPrimaryButton = findViewById<Button>(R.id.testPrimaryButton)
         val testSecondaryButton = findViewById<Button>(R.id.testSecondaryButton)
 
+        val backButton = findViewById<Button>(R.id.backButton)
+
+backButton.setOnClickListener {
+    finish()
+}
+
         val settings = repository.load()
 
         ipEdit.setText(settings.espAddress)
