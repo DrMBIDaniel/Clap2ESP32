@@ -33,6 +33,8 @@ class AudioService : Service() {
        super.onCreate()
        clapDetector = ClapDetector(this)
 
+Logger.initialize(SettingsRepository(this))
+       
 Logger.log(
     "AudioService created",
     LogType.INFO,
