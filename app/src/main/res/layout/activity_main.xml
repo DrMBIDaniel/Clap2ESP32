@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Clap2ESP VERSION 0.2"
+        android:text="Clap2ESP32 VERSION 0.3"
         android:textSize="32sp"
         android:gravity="center"/>
 
