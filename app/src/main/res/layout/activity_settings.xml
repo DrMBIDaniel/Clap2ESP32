@@ -66,12 +66,14 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-        <EditText
-    android:id="@+id/togglePathEdit"
-    ... />
+    <EditText
+        android:id="@+id/togglePathEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Toggle Path"/>
 
-            </LinearLayout>
-
+</LinearLayout>
+    
     <LinearLayout
     android:id="@+id/onOffLayout"
     android:layout_width="match_parent"
