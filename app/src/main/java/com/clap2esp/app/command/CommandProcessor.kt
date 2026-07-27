@@ -116,7 +116,7 @@ class CommandProcessor(
         LogType.SUCCESS
     )
 
-    requestAgent.sendOff()
+    requestAgent.sendSecondary()
 }
 
     fun onLightOn() {
@@ -126,7 +126,7 @@ class CommandProcessor(
             LogType.SUCCESS
         )
 
-        requestAgent.sendOn()
+        requestAgent.sendPrimary()
     }
 
     fun onLightOff() {
@@ -136,7 +136,7 @@ class CommandProcessor(
             LogType.SUCCESS
         )
 
-        requestAgent.sendOff()
+       requestAgent.sendSecondary()
     }
 
     private fun processSequence(type: ClapType) {
