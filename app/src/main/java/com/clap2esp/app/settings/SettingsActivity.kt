@@ -5,7 +5,6 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.clap2esp.app.R
 import com.clap2esp.app.network.ConnectionTester
-import android.view.View
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -50,38 +49,6 @@ class SettingsActivity : AppCompatActivity() {
 
         toggleMode.isChecked = settings.mode == 0
         onOffMode.isChecked = settings.mode == 1
-        
-        val toggleLayout = findViewById<LinearLayout>(R.id.toggleLayout)
-val onOffLayout = findViewById<LinearLayout>(R.id.onOffLayout)
-
-fun updateModeUI() {
-
-    if (toggleMode.isChecked) {
-
-        toggleLayout.visibility = View.VISIBLE
-        onOffLayout.visibility = View.GONE
-
-    } else {
-
-        toggleLayout.visibility = View.GONE
-        onOffLayout.visibility = View.VISIBLE
-
-    }
-
-}
-
-updateModeUI()
-
-        doubleSingle.isChecked = settings.sequence == 0
-        singleDouble.isChecked = settings.sequence == 1
-
-        toggleMode.setOnCheckedChangeListener { _, _ ->
-    updateModeUI()
-}
-
-onOffMode.setOnCheckedChangeListener { _, _ ->
-    updateModeUI()
-}
 
         manualTimeout.isChecked = settings.manualTimeout
         timeoutEdit.setText(settings.timeout.toString())
