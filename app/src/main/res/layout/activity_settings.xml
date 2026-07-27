@@ -60,11 +60,23 @@
         android:textSize="18sp"
         android:layout_marginTop="24dp"/>
 
-    <EditText
-        android:id="@+id/togglePathEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Toggle Path"/>
+    <LinearLayout
+    android:id="@+id/toggleLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+        <EditText
+    android:id="@+id/togglePathEdit"
+    ... />
+
+            </LinearLayout>
+
+    <LinearLayout
+    android:id="@+id/onOffLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <EditText
         android:id="@+id/primaryPathEdit"
@@ -79,6 +91,45 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="Secondary Path"/>
+
+    <EditText
+        android:id="@+id/togglePathEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Toggle Path"/>
+
+          <!-- SECONDARY SEQUENCE -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Secondary Sequence"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginTop="24dp"/>
+
+    <RadioGroup
+        android:id="@+id/sequenceGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/doubleSingle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Double → Single"/>
+
+        <RadioButton
+            android:id="@+id/singleDouble"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Single → Double"/>
+
+    </RadioGroup>
+        
+</LinearLayout>
+
+
 
     <!-- MODE -->
 
@@ -109,35 +160,7 @@
 
     </RadioGroup>
 
-    <!-- SECONDARY SEQUENCE -->
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Secondary Sequence"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_marginTop="24dp"/>
-
-    <RadioGroup
-        android:id="@+id/sequenceGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <RadioButton
-            android:id="@+id/doubleSingle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Double → Single"/>
-
-        <RadioButton
-            android:id="@+id/singleDouble"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Single → Double"/>
-
-    </RadioGroup>
-
+  
        <!-- DETECTOR -->
 
     <TextView
