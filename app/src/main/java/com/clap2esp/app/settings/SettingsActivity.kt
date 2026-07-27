@@ -15,8 +15,10 @@ class SettingsActivity : AppCompatActivity() {
         val repository = SettingsRepository(this)
 
         val ipEdit = findViewById<EditText>(R.id.ipEdit)
-        val pathEdit = findViewById<EditText>(R.id.pathEdit)
-
+        val togglePathEdit = findViewById<EditText>(R.id.togglePathEdit)
+        val primaryPathEdit = findViewById<EditText>(R.id.primaryPathEdit)
+        val secondaryPathEdit = findViewById<EditText>(R.id.secondaryPathEdit)
+        
         val toggleMode = findViewById<RadioButton>(R.id.toggleMode)
         val onOffMode = findViewById<RadioButton>(R.id.onOffMode)
 
@@ -39,7 +41,9 @@ class SettingsActivity : AppCompatActivity() {
         val settings = repository.load()
 
         ipEdit.setText(settings.espAddress)
-        pathEdit.setText(settings.togglePath)
+        togglePathEdit.setText(settings.togglePath)
+        primaryPathEdit.setText(settings.onPath
+        secondaryPathEdit.setText(settings.offPath)
 
         toggleMode.isChecked = settings.mode == 0
         onOffMode.isChecked = settings.mode == 1
