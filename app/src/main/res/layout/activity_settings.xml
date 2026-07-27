@@ -46,12 +46,34 @@
             android:textSize="18sp"
             android:layout_marginTop="24dp"/>
 
-        <EditText
-            android:id="@+id/togglePathEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Toggle Path"/>
+       <LinearLayout
+    android:id="@+id/toggleLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
+    <EditText
+        android:id="@+id/togglePathEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Toggle Path"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Used by Double Clap in Toggle mode."
+        android:textSize="12sp"
+        android:textColor="#888888"/>
+
+</LinearLayout>
+
+        <LinearLayout
+    android:id="@+id/onOffLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+        
         <EditText
             android:id="@+id/primaryPathEdit"
             android:layout_width="match_parent"
@@ -121,6 +143,8 @@
                 android:layout_height="wrap_content"
                 android:text="Single → Double"/>
         </RadioGroup>
+
+            </LinearLayout>
 
         <!-- ================= DETECTOR ================= -->
 
