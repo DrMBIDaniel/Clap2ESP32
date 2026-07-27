@@ -84,6 +84,8 @@ class CommandProcessor(
         LogType.SUCCESS
     )
 
+    vibrate()
+
     Logger.log(
         "Sending Secondary Path",
         LogType.SUCCESS
