@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -7,34 +8,72 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="20dp">
+
+        <!-- ================= HEADER ================= -->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="⚙ Settings"
-            android:textSize="28sp"
+            android:text="⚙ Clap2ESP Settings"
+            android:textStyle="bold"
+            android:textSize="26sp"
             android:gravity="center"/>
+
+        <!-- ================= NETWORK ================= -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Network"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="24dp"/>
 
         <EditText
             android:id="@+id/ipEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:hint="ESP Address"/>
 
+        <!-- ================= COMMAND PATHS ================= -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Commands"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="24dp"/>
+
         <EditText
-            android:id="@+id/pathEdit"
+            android:id="@+id/togglePathEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
             android:hint="Toggle Path"/>
+
+        <EditText
+            android:id="@+id/primaryPathEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Primary Path"
+            android:layout_marginTop="8dp"/>
+
+        <EditText
+            android:id="@+id/secondaryPathEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Secondary Path"
+            android:layout_marginTop="8dp"/>
+
+        <!-- ================= MODE ================= -->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mode"
             android:textStyle="bold"
+            android:textSize="18sp"
             android:layout_marginTop="24dp"/>
 
         <RadioGroup
@@ -52,15 +91,18 @@
                 android:id="@+id/onOffMode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ON / OFF"/>
+                android:text="Primary / Secondary"/>
         </RadioGroup>
+
+        <!-- ================= SEQUENCE ================= -->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Shutdown sequence"
+            android:text="Secondary Sequence"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
+            android:textSize="18sp"
+            android:layout_marginTop="24dp"/>
 
         <RadioGroup
             android:id="@+id/sequenceGroup"
@@ -80,12 +122,21 @@
                 android:text="Single → Double"/>
         </RadioGroup>
 
+        <!-- ================= DETECTOR ================= -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Detector"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="24dp"/>
+
         <CheckBox
             android:id="@+id/manualTimeout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Manual timeout"
-            android:layout_marginTop="20dp"/>
+            android:text="Manual timeout"/>
 
         <EditText
             android:id="@+id/timeoutEdit"
@@ -98,13 +149,51 @@
             android:id="@+id/vibrationCheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vibrate on clap"/>
+            android:text="Vibration"/>
+
+        <!-- ================= LOGS ================= -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logs"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="24dp"/>
+
+        <CheckBox
+            android:id="@+id/systemLogCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="System"/>
+
+        <CheckBox
+            android:id="@+id/audioLogCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Audio"/>
 
         <CheckBox
             android:id="@+id/networkLogCheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Network log"/>
+            android:text="Network"/>
+
+        <CheckBox
+            android:id="@+id/debugLogCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Debug"/>
+
+        <!-- ================= UI ================= -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Interface"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="24dp"/>
 
         <CheckBox
             android:id="@+id/connectionCheck"
@@ -112,26 +201,29 @@
             android:layout_height="wrap_content"
             android:text="Connection indicator"/>
 
-        <Button
-            android:id="@+id/saveButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Save"
-            android:layout_marginTop="24dp"/>
+        <!-- ================= BUTTONS ================= -->
 
         <Button
             android:id="@+id/testButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Test request"
-            android:layout_marginTop="12dp"/>
+            android:text="Test Request"
+            android:layout_marginTop="28dp"/>
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save Settings"
+            android:layout_marginTop="10dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Version 0.2"
             android:gravity="center"
-            android:layout_marginTop="24dp"/>
+            android:text="Clap2ESP v0.3"
+            android:layout_marginTop="28dp"
+            android:textColor="#888"/>
 
     </LinearLayout>
 
