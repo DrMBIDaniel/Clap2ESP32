@@ -42,7 +42,7 @@ class SettingsActivity : AppCompatActivity() {
 
         ipEdit.setText(settings.espAddress)
         togglePathEdit.setText(settings.togglePath)
-        primaryPathEdit.setText(settings.onPath
+        primaryPathEdit.setText(settings.onPath)
         secondaryPathEdit.setText(settings.offPath)
 
         toggleMode.isChecked = settings.mode == 0
