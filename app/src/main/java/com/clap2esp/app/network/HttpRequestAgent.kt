@@ -40,11 +40,20 @@ class HttpRequestAgent(
 
             val address = settings.espAddress
 
-            val url = when (command) {
-                "toggle" -> "http://$address${settings.togglePath}"
-                "on" -> "http://$address/on"
-                else -> "http://$address/off"
-            }
+            val url = when(command){
+
+    "toggle" ->
+        "http://$address${settings.togglePath}"
+
+    "on" ->
+        "http://$address${settings.onPath}"
+
+    "off" ->
+        "http://$address${settings.offPath}"
+
+    else ->
+        "http://$address${settings.togglePath}"
+}
 
            Logger.log(
     "GET $command",
