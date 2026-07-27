@@ -4,8 +4,7 @@ interface RequestAgent {
 
     fun sendToggle(): Boolean
 
-    fun sendOn(): Boolean
+    fun sendPrimary(): Boolean
 
-    fun sendOff(): Boolean
-
+    fun sendSecondary(): Boolean
 }
