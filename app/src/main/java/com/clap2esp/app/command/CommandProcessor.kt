@@ -59,7 +59,7 @@ class CommandProcessor(
         LogType.SUCCESS
     )
 
-    requestAgent.sendOn()
+    requestAgent.sendPrimary()
 }
 
         processSequence(ClapType.DOUBLE)
@@ -89,7 +89,7 @@ class CommandProcessor(
         LogType.SUCCESS
     )
 
-    requestAgent.sendOff()
+    requestAgent.sendSecondary()
 }
 
  fun onSequenceSingleDouble() {
