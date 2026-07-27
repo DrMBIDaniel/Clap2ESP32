@@ -20,6 +20,7 @@ import android.text.style.ForegroundColorSpan
 import android.graphics.Typeface
 import android.text.style.StyleSpan
 import android.widget.Toast
+import com.clap2esp.app.settings.SettingsRepository
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,9 +32,11 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+        Logger.initialize(SettingsRepository(this))
+
         logText = findViewById(R.id.logText)
 
-Logger.setOnLogChanged {
+        Logger.setOnLogChanged {
 
     runOnUiThread {
 
