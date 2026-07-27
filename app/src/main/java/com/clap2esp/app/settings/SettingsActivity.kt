@@ -27,7 +27,10 @@ class SettingsActivity : AppCompatActivity() {
         val timeoutEdit = findViewById<EditText>(R.id.timeoutEdit)
 
         val vibrationCheck = findViewById<CheckBox>(R.id.vibrationCheck)
+        val systemLogCheck = findViewById<CheckBox>(R.id.systemLogCheck)
+        val audioLogCheck = findViewById<CheckBox>(R.id.audioLogCheck)
         val networkLogCheck = findViewById<CheckBox>(R.id.networkLogCheck)
+        val debugLogCheck = findViewById<CheckBox>(R.id.debugLogCheck)
         val connectionCheck = findViewById<CheckBox>(R.id.connectionCheck)
 
         val saveButton = findViewById<Button>(R.id.saveButton)
@@ -48,7 +51,10 @@ class SettingsActivity : AppCompatActivity() {
         timeoutEdit.setText(settings.timeout.toString())
 
         vibrationCheck.isChecked = settings.vibration
-        networkLogCheck.isChecked = settings.networkLog
+        systemLogCheck.isChecked = settings.showSystemLog
+        audioLogCheck.isChecked = settings.showAudioLog
+        networkLogCheck.isChecked = settings.showNetworkLog
+        debugLogCheck.isChecked = settings.showDebugLog
         connectionCheck.isChecked = settings.connectionIndicator
 
         saveButton.setOnClickListener {
@@ -71,7 +77,10 @@ class SettingsActivity : AppCompatActivity() {
                 manualTimeout = manualTimeout.isChecked,
                 timeout = timeout,
                 vibration = vibrationCheck.isChecked,
-                networkLog = networkLogCheck.isChecked,
+                showSystemLog = systemLogCheck.isChecked,
+                showAudioLog = audioLogCheck.isChecked,
+                showNetworkLog = networkLogCheck.isChecked,
+                showDebugLog = debugLogCheck.isChecked,
                 connectionIndicator = connectionCheck.isChecked
             )
 
