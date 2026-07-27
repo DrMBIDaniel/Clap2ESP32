@@ -92,20 +92,32 @@ class CommandProcessor(
     requestAgent.sendOff()
 }
 
-    fun onSequenceSingleDouble() {
+ fun onSequenceSingleDouble() {
+
+    val settings = repository.load()
+
+    if (settings.mode == 0) {
 
         Logger.log(
-            "Sequence SINGLE → DOUBLE detected",
-            LogType.SUCCESS
+            "Complex sequences ignored (Toggle mode)",
+            LogType.WARNING
         )
 
-        Logger.log(
-            "Sending OFF command",
-            LogType.SUCCESS
-        )
-
-        requestAgent.sendOff()
+        return
     }
+
+    Logger.log(
+        "Sequence SINGLE → DOUBLE detected",
+        LogType.SUCCESS
+    )
+
+    Logger.log(
+        "Sending Secondary Path",
+        LogType.SUCCESS
+    )
+
+    requestAgent.sendOff()
+}
 
     fun onLightOn() {
 
