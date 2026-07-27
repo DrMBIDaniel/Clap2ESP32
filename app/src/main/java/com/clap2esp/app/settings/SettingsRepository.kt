@@ -29,10 +29,9 @@ class SettingsRepository(private val context:Context){
     fun load():SettingsModel{
         return SettingsModel(
             espAddress = prefs.getString("espAddress","") ?: "",
-            togglePath = prefs.getString("togglePath","/toggle") ?: "/toggle",
-
-            onPath = prefs.getString("onPath","/on") ?: "/on",
-            offPath = prefs.getString("offPath","/off") ?: "/off",
+            togglePath = prefs.getString("togglePath", "/toggle") ?: "/toggle",
+            onPath = prefs.getString("onPath", "/on") ?: "/on",
+            offPath = prefs.getString("offPath", "/off") ?: "/off",
             
             mode=prefs.getInt("mode",0),
             sequence=prefs.getInt("sequence",0),
