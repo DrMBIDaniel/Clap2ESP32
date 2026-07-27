@@ -101,25 +101,64 @@ class SettingsActivity : AppCompatActivity() {
             ).show()
         }
 
-        testButton.setOnClickListener {
+testButton.setOnClickListener {
 
-            Thread {
+    Thread {
 
-                val tester = ConnectionTester(this)
+        val success = ConnectionTester(this).testToggle()
 
-                val success = tester.test()
+        runOnUiThread {
 
-                runOnUiThread {
+            Toast.makeText(
+                this,
+                if (success) "Toggle request successful"
+                else "Toggle request failed",
+                Toast.LENGTH_SHORT
+            ).show()
 
-                    Toast.makeText(
-                        this,
-                        if (success) "Request successful" else "Request failed",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                }
-
-            }.start()
         }
+
+    }.start()
+}
+
+testPrimaryButton.setOnClickListener {
+
+    Thread {
+
+        val success = ConnectionTester(this).testPrimary()
+
+        runOnUiThread {
+
+            Toast.makeText(
+                this,
+                if (success) "Primary request successful"
+                else "Primary request failed",
+                Toast.LENGTH_SHORT
+            ).show()
+
+        }
+
+    }.start()
+}
+
+testSecondaryButton.setOnClickListener {
+
+    Thread {
+
+        val success = ConnectionTester(this).testSecondary()
+
+        runOnUiThread {
+
+            Toast.makeText(
+                this,
+                if (success) "Secondary request successful"
+                else "Secondary request failed",
+                Toast.LENGTH_SHORT
+            ).show()
+
+        }
+
+    }.start()
+}
     }
 }
