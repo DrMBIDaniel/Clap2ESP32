@@ -17,8 +17,50 @@ import com.clap2esp.app.network.HttpRequestAgent
 import com.clap2esp.app.LogType
 import com.clap2esp.app.LogCategory
 import com.clap2esp.app.settings.SettingsRepository
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 
 class AudioService : Service() {
+
+    private fun vibrate() {
+
+    val settings = repository.load()
+
+    if (!settings.vibration) return
+
+    val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+
+        val manager =
+            getSystemService(VIBRATOR_MANAGER_SERVICE)
+                    as VibratorManager
+
+        manager.defaultVibrator
+
+    } else {
+
+        @Suppress("DEPRECATION")
+        getSystemService(VIBRATOR_SERVICE) as Vibrator
+
+    }
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+        vibrator.vibrate(
+            VibrationEffect.createOneShot(
+                40,
+                VibrationEffect.DEFAULT_AMPLITUDE
+            )
+        )
+
+    } else {
+
+        @Suppress("DEPRECATION")
+        vibrator.vibrate(40)
+
+    }
+}
 
     private var audioRecord: AudioRecord? = null
     private var isRecording = false
@@ -163,6 +205,7 @@ createNotificationChannel()
                                 )
                             
                             commandProcessor.onDoubleClap()
+                            vibrate()
 
                             sendBroadcast(
                                 Intent("DOUBLE_CLAP")
