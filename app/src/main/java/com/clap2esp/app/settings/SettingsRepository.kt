@@ -15,7 +15,10 @@ class SettingsRepository(private val context:Context){
             .putBoolean("manualTimeout",settings.manualTimeout)
             .putInt("timeout",settings.timeout)
             .putBoolean("vibration",settings.vibration)
-            .putBoolean("networkLog",settings.networkLog)
+            .putBoolean("showSystemLog", settings.showSystemLog)
+            .putBoolean("showAudioLog", settings.showAudioLog)
+            .putBoolean("showNetworkLog", settings.showNetworkLog)
+            .putBoolean("showDebugLog", settings.showDebugLog)
             .putBoolean("connectionIndicator",settings.connectionIndicator)
             .apply()
     }
@@ -29,7 +32,17 @@ class SettingsRepository(private val context:Context){
             manualTimeout=prefs.getBoolean("manualTimeout",false),
             timeout=prefs.getInt("timeout",550),
             vibration=prefs.getBoolean("vibration",true),
-            networkLog=prefs.getBoolean("networkLog",false),
+          showSystemLog =
+    prefs.getBoolean("showSystemLog", true),
+
+showAudioLog =
+    prefs.getBoolean("showAudioLog", true),
+
+showNetworkLog =
+    prefs.getBoolean("showNetworkLog", true),
+
+showDebugLog =
+    prefs.getBoolean("showDebugLog", false),
             connectionIndicator=prefs.getBoolean("connectionIndicator",true)
         )
     }
