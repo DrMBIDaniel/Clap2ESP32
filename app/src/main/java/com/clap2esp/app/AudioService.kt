@@ -16,6 +16,7 @@ import com.clap2esp.app.command.CommandProcessor
 import com.clap2esp.app.network.HttpRequestAgent
 import com.clap2esp.app.LogType
 import com.clap2esp.app.LogCategory
+import com.clap2esp.app.settings.SettingsRepository
 
 class AudioService : Service() {
 
@@ -31,10 +32,11 @@ class AudioService : Service() {
     override fun onCreate() {
 
        super.onCreate()
+
+       Logger.initialize(SettingsRepository(this))
+       
        clapDetector = ClapDetector(this)
 
-Logger.initialize(SettingsRepository(this))
-       
 Logger.log(
     "AudioService created",
     LogType.INFO,
