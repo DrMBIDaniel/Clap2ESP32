@@ -31,7 +31,7 @@ class ConnectionTester(
             LogCategory.NET
         )
 
-        return requestAgent.sendOn()
+        return requestAgent.sendPrimary()
     }
 
     fun testSecondary(): Boolean {
@@ -42,7 +42,7 @@ class ConnectionTester(
             LogCategory.NET
         )
 
-        return requestAgent.sendOff()
+        return requestAgent.sendSecondary()
     }
 
     fun test(): Boolean {
