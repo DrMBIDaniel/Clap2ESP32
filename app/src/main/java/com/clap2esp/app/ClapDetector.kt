@@ -32,6 +32,11 @@ private companion object {
 
     val settings = repository.load()
 
+    Logger.log(
+    "Timeout = ${settings.timeout} Manual=${settings.manualTimeout}",
+    LogType.DEBUG
+)
+
     return if (settings.manualTimeout)
         settings.timeout.toLong()
     else
