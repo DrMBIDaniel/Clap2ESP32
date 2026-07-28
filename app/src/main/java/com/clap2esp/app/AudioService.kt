@@ -23,6 +23,11 @@ import android.os.VibratorManager
 
 class AudioService : Service() {
 
+    private val mainHandler =
+    android.os.Handler(
+        android.os.Looper.getMainLooper()
+    )
+
     private lateinit var repository: SettingsRepository
 
     private fun vibrate() {
@@ -45,6 +50,15 @@ class AudioService : Service() {
         getSystemService(VIBRATOR_SERVICE) as Vibrator
 
     }
+
+    if (!vibrator.hasVibrator()) {
+    Logger.log(
+        "Device has no vibrator",
+        LogType.WARNING,
+        LogCategory.SYS
+    )
+    return
+}
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
@@ -208,7 +222,36 @@ createNotificationChannel()
                                 )
                             
                             commandProcessor.onDoubleClap()
-                            vibrate()
+                            
+                           mainHandler.post {
+
+    Logger.log(
+        "Trying vibration",
+        LogType.INFO,
+        LogCategory.SYS
+    )
+
+    try {
+
+        vibrate()
+
+        Logger.log(
+            "Vibration OK",
+            LogType.SUCCESS,
+            LogCategory.SYS
+        )
+
+    } catch (e: Exception) {
+
+        Logger.log(
+            "Vibration ERROR: ${e.message}",
+            LogType.ERROR,
+            LogCategory.SYS
+        )
+
+    }
+
+}
 
                             sendBroadcast(
                                 Intent("DOUBLE_CLAP")
