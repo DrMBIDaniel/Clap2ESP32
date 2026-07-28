@@ -34,7 +34,7 @@ private companion object {
 
     Logger.log(
     "Timeout = ${settings.timeout} Manual=${settings.manualTimeout}",
-    LogType.DEBUG
+    LogType.INFO
 )
 
     return if (settings.manualTimeout)
