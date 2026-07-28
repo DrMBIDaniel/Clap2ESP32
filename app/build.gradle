@@ -29,13 +29,9 @@ kotlinOptions {
     }
 
 applicationVariants.all { variant ->
-
     variant.outputs.all {
-
-        outputFileName = "Clap2ESP32-v${variant.versionName}.apk"
-
+        outputFileName = "Clap2ESP32-v0.3.apk"
     }
-
 }
     
 }
