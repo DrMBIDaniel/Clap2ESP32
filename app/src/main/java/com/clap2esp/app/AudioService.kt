@@ -64,8 +64,8 @@ class AudioService : Service() {
 
         vibrator.vibrate(
             VibrationEffect.createOneShot(
-                70,
-                VibrationEffect.DEFAULT_AMPLITUDE
+                120,
+                255
             )
         )
 
