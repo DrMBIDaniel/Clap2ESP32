@@ -1,9 +1,11 @@
-class ConnectionMonitor(
-    private val context: Context
-) {
+package com.clap2esp.app.network
 
-    fun start()
+class ConnectionMonitor {
 
-    fun stop()
+    fun start() {
+    }
+
+    fun stop() {
+    }
 
 }
