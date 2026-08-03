@@ -129,8 +129,11 @@ private companion object {
         ) {
             waitingSecondClap = false
 
-           Logger.log(
-    "Single clap detected",
+      val delay =
+    System.currentTimeMillis() - firstClapTime
+
+Logger.log(
+    "Single clap detected (${delay} ms)",
     LogType.SUCCESS,
     LogCategory.AUD
 )
