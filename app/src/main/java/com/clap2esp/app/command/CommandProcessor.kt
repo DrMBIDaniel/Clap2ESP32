@@ -202,9 +202,5 @@ class CommandProcessor(
         lastClap = type
         lastClapTime = now
 
-        Logger.log(
-            "Waiting for second sequence clap",
-            LogType.INFO
-        )
     }
 }
