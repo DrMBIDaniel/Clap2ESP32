@@ -64,7 +64,7 @@ class AudioService : Service() {
 
         vibrator.vibrate(
             VibrationEffect.createOneShot(
-                120,
+                240,
                 255
             )
         )
@@ -224,30 +224,13 @@ createNotificationChannel()
                             commandProcessor.onDoubleClap()
                             
                            mainHandler.post {
-
-    Logger.log(
-        "Trying vibration",
-        LogType.INFO,
-        LogCategory.SYS
-    )
+                               
 
     try {
 
         vibrate()
 
-        Logger.log(
-            "Vibration OK",
-            LogType.SUCCESS,
-            LogCategory.SYS
-        )
-
     } catch (e: Exception) {
-
-        Logger.log(
-            "Vibration ERROR: ${e.message}",
-            LogType.ERROR,
-            LogCategory.SYS
-        )
 
     }
 
@@ -348,32 +331,16 @@ createNotificationChannel()
 
         }
 
-
-
-
         audioRecord?.release()
-
-
         audioRecord = null
-
-
-
         super.onDestroy()
 
-
     }
-
-
-
-
-
-
 
     override fun onBind(intent: Intent?): IBinder? {
 
         return null
 
     }
-
 
 }
