@@ -149,11 +149,6 @@ class CommandProcessor(
 
             val settings = repository.load()
 
-            Logger.log(
-                "Sequence mode = ${settings.sequence}",
-                LogType.INFO
-            )
-
             if (
                 lastClap == ClapType.DOUBLE &&
                 type == ClapType.SINGLE
